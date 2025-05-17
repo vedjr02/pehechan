@@ -124,6 +124,14 @@
                 <div class="row about-info wide" data-animate-block style="margin-top: 4rem; margin-bottom: 6rem; display: flex; align-items: flex-start; gap: 6rem;">
 
                     <div class="column lg-6 md-12 about-info__pic-block" style="flex: 1;">
+                        <style>
+                            @media screen and (max-width: 600px) {
+                                .about-info__pic {
+                                    width: 100% !important;
+                                    max-width: none !important;
+                                }
+                            }
+                        </style>
                         <img src="images/about-photo.jpg" 
                              srcset="images/about-photo.jpg 1x, images/about-photo@2x.jpg 2x" alt="" class="about-info__pic" data-animate-el style="max-width: 100%; height: auto; display: block;">
                     </div>
@@ -167,9 +175,11 @@
                 </div> <!-- end about-expertise -->
 
 
-                <div class="row about-timelines" data-animate-block style="margin-top: 4rem; display: flex; justify-content: space-between; gap: 4rem; flex-wrap: nowrap;">
+                <div class="row about-timelines" data-animate-block>
+                    <div class="column lg-12">
+                        <div style="display: flex; gap: 4rem;">
 
-                    <div class="column lg-6 tab-12" style="flex: 0 0 calc(50% - 2rem);">
+                            <div class="column lg-6 tab-12">
 
                         <h2 class="text-pretitle" data-animate-el>
                             Experience
@@ -192,7 +202,7 @@
 
                     </div> <!-- end column -->
 
-                    <div class="column lg-6 tab-12" style="flex: 0 0 calc(50% - 2rem);">
+                            <div class="column lg-6 tab-12">
 
                         <h2 class="text-pretitle" data-animate-el>
                             Education
@@ -226,10 +236,9 @@
     
                         </div> <!-- end timeline -->
                         
-                    </div> <!-- end column -->
-
-
-
+                            </div>
+                        </div>
+                    </div>
                 </div> <!-- end about-timelines -->
 
             </section> <!-- end s-about -->
