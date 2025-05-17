@@ -17,7 +17,6 @@
     ================================================== -->
     <link rel="stylesheet" href="css/vendor.css">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/photography-link.css">
 
     <!-- favicons
     ================================================== -->
@@ -169,6 +168,36 @@
 
                         <h2 class="text-pretitle" data-animate-el>Expertise</h2>
 
+                        <style>
+                            .skills-list li.photography-link {
+                                position: relative;
+                                cursor: pointer;
+                                transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+                                display: inline-block;
+                                padding: 0 5px;
+                                border-bottom: 2px solid transparent;
+                            }
+                            
+                            .skills-list li.photography-link:hover {
+                                color: var(--color-1);
+                                transform: translateY(-3px);
+                                border-bottom: 2px solid var(--color-1);
+                                text-shadow: 0 0 10px rgba(234, 190, 124, 0.3);
+                            }
+                            
+                            @keyframes pulse {
+                                0% { transform: scale(1); }
+                                50% { transform: scale(1.1); }
+                                100% { transform: scale(1); }
+                            }
+                            
+                            .skills-list li.photography-link.clicked {
+                                animation: pulse 0.5s ease;
+                                color: var(--color-1);
+                                border-bottom: 2px solid var(--color-1);
+                            }
+                        </style>
+                        
                         <ul class="skills-list h1" data-animate-el>
                             <li>Data Analytics</li>
                             <li>Computer Vision</li>
