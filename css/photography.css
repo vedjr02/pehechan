@@ -61,7 +61,13 @@
     height: 100%;
     object-fit: cover;
     vertical-align: bottom;
-    transition: transform 0.4s ease-out;
+    transition: transform 0.4s ease-out, filter 0.3s ease;
+    filter: blur(0px);
+    will-change: transform, filter;
+}
+
+.gallery-image.loading img {
+    filter: blur(5px) brightness(0.8);
 }
 
 .gallery-image:hover img {
@@ -137,24 +143,25 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 24px;
-    height: 24px;
-    margin: -12px 0 0 -12px;
-    border: 2px solid var(--color-2);
-    border-top-color: transparent;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-top-color: white;
     border-radius: 50%;
     animation: loading 0.8s linear infinite;
+    opacity: 0.7;
+}
+
+/* Optimize image display */
+.gallery-image {
+    transition: opacity 0.3s ease;
 }
 
 @keyframes loading {
     to {
         transform: rotate(360deg);
     }
-}
-
-/* Optimize image display */
-.gallery-image {
-    transition: opacity 0.3s ease;
 }
 
 .gallery-image img {

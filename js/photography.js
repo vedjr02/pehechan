@@ -6,6 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
         preloader.style.display = 'none';
     }
     
+    // Force immediate render of page
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+    }, 10);
+    
     // Get all gallery images
     const galleryImages = document.querySelectorAll('.gallery-image img');
     
@@ -16,35 +21,30 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = startIndex; i < endIndex; i++) {
             const img = galleryImages[i];
             img.setAttribute('loading', 'lazy');
+            img.setAttribute('decoding', 'async'); // Add async decoding
             
             // Store the full-size image path in a data attribute
             const fullSizePath = img.getAttribute('src');
             img.setAttribute('data-full-size', fullSizePath);
             
-            // Create thumbnail path by replacing the original path
-            // This assumes you'll create thumbnails with the same names in a thumbnails subfolder
-            const thumbnailPath = fullSizePath.replace('/photography/', '/photography/thumbnails/');
-            
-            // Set the source to the thumbnail
-            // For now, we'll use the same image but in production you'd create actual thumbnails
-            img.setAttribute('src', fullSizePath);
-            
             // Add loading class
             img.parentElement.classList.add('loading');
             
+            // Create a low-quality version for faster loading
+            // In a real production environment, you would have actual thumbnails
+            // Here we're using the same image but with the blur effect in CSS
+            
             // Remove loading class when image is loaded
             img.onload = function() {
-                img.parentElement.classList.remove('loading');
+                setTimeout(() => {
+                    img.parentElement.classList.remove('loading');
+                }, 300); // Delay to ensure smooth transition
             };
             
             // Handle error
             img.onerror = function() {
                 img.parentElement.classList.remove('loading');
                 img.parentElement.classList.add('error');
-                // If thumbnail fails, try loading original
-                if (img.getAttribute('src') !== fullSizePath) {
-                    img.setAttribute('src', fullSizePath);
-                }
             };
         }
         
@@ -52,12 +52,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (endIndex < galleryImages.length) {
             setTimeout(() => {
                 processBatch(endIndex, batchSize);
-            }, 100);
+            }, 200); // Increased delay between batches
         }
     };
     
-    // Start processing images in batches of 4
-    processBatch(0, 4);
+    // Start processing images in batches of 3 (smaller batches)
+    processBatch(0, 3);
 
     // Lightbox functionality
     const lightbox = document.querySelector('.lightbox');
