@@ -194,7 +194,7 @@
                                             borderRadius: '5px',
                                             boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
                                             opacity: '0',
-                                            transition: 'opacity 0.3s ease',
+                                            transition: 'opacity 0.3s ease, transform 0.5s ease',
                                             pointerEvents: 'none'
                                         });
                                         
@@ -223,6 +223,20 @@
                                         
                                         // Show the meme
                                         meme.style.opacity = '1';
+                                        
+                                        // Make the meme disappear after 5 seconds
+                                        setTimeout(function() {
+                                            // Fade out and shrink animation
+                                            meme.style.opacity = '0';
+                                            meme.style.transform = `translate(-50%, -50%) rotate(${randomRotation}deg) scale(0.5)`;
+                                            
+                                            // Remove from DOM after animation completes
+                                            setTimeout(function() {
+                                                if (meme.parentNode) {
+                                                    meme.parentNode.removeChild(meme);
+                                                }
+                                            }, 300);
+                                        }, 5000);
                                         
                                         // Optional: Remove memes after they exceed a certain number
                                         const allMemes = document.querySelectorAll('.meme-image');
