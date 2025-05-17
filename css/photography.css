@@ -1,0 +1,67 @@
+/* Photography styles */
+.s-photography {
+    padding-top: var(--vspace-5);
+    padding-bottom: var(--vspace-4);
+}
+
+.gallery-wrapper {
+    margin-top: var(--vspace-2_5);
+}
+
+.gallery-item {
+    margin-bottom: var(--vspace-1_5);
+}
+
+.gallery-image {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+}
+
+.gallery-image img {
+    width: 100%;
+    height: auto;
+    vertical-align: bottom;
+    transition: transform 0.3s ease-in-out;
+}
+
+.gallery-image:hover img {
+    transform: scale(1.04);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 800px) {
+    .gallery-wrapper {
+        margin-top: var(--vspace-2);
+    }
+
+    .gallery-item {
+        margin-bottom: var(--vspace-1);
+    }
+}
+
+/* Loading animation for images */
+.gallery-image.loading {
+    background: var(--color-gray-19);
+    min-height: 300px;
+}
+
+.gallery-image.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 2px solid var(--color-2);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: loading 0.8s linear infinite;
+}
+
+@keyframes loading {
+    to {
+        transform: rotate(360deg);
+    }
+}
