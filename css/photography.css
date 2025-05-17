@@ -48,6 +48,12 @@
     cursor: pointer;
     height: 200px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transform: scale(0.98);
+    transition: transform 0.3s ease;
+}
+
+.gallery-image:hover {
+    transform: scale(1);
 }
 
 .gallery-image img {
@@ -85,6 +91,22 @@
     max-width: 90%;
     max-height: 90vh;
     object-fit: contain;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: loading 1s linear infinite;
+    display: none;
 }
 
 .lightbox-close {
