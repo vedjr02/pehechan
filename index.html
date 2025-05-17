@@ -175,11 +175,18 @@
                 </div> <!-- end about-expertise -->
 
 
-                <div class="row about-timelines" data-animate-block>
-                    <div class="column lg-12">
-                        <div style="display: flex; gap: 4rem;">
+                <div class="row about-timelines" data-animate-block style="margin-top: 4rem;">
+                    <style>
+                        @media screen and (max-width: 800px) {
+                            .about-timelines .column.lg-12 {
+                                flex-direction: column !important;
+                            }
+                        }
+                    </style>
+                    <div class="column lg-12" style="display: flex; flex-direction: row; gap: 4rem;">
+                        <div style="flex: 1;">
 
-                            <div class="column lg-6 tab-12">
+                        <div style="flex: 1;">
 
                         <h2 class="text-pretitle" data-animate-el>
                             Experience
@@ -202,7 +209,7 @@
 
                     </div> <!-- end column -->
 
-                            <div class="column lg-6 tab-12">
+                        <div style="flex: 1;">
 
                         <h2 class="text-pretitle" data-animate-el>
                             Education
@@ -218,25 +225,24 @@
                                     <p class="timeline__timeframe">2022 - Present</p>
                                 </div>
                                 <div class="timeline__desc">
-                                    <p>Completed B.Tech in Information Technology from RAIT DY Patil University.</p>
+                                    <p>Currently pursuing B.Tech in Information Technology with focus on AI and Data Science.</p>
                                 </div>
                             </div>
     
                             <div class="timeline__block">
                                 <div class="timeline__bullet"></div>
                                 <div class="timeline__header">
-                                    <h4 class="timeline__title">Unified Mentor Pvt. Ltd.</h3>
-                                    <h5 class="timeline__meta">Data Science Intern</h5>
-                                    <p class="timeline__timeframe">Jan 2025 - Present</p>
+                                    <h4 class="timeline__title">VPMs Polytechnic</h4>
+                                    <h5 class="timeline__meta">Diploma in Computer Science</h5>
+                                    <p class="timeline__timeframe">2018 - 2022</p>
                                 </div>
                                 <div class="timeline__desc">
-                                    <p>Worked on a project to analyze student performance and provide personalized feedback to improve their learning experience.</p>
+                                    <p>Completed Diploma in Computer Science with distinction, focusing on programming and system design.</p>
                                 </div>
                             </div>
     
                         </div> <!-- end timeline -->
                         
-                            </div>
                         </div>
                     </div>
                 </div> <!-- end about-timelines -->
