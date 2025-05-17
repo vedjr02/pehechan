@@ -333,9 +333,9 @@
         const triggers = document.querySelectorAll('.smoothscroll');
         
         const moveTo = new MoveTo({
-            tolerance: 0,
-            duration: 1200,
-            easing: 'easeInOutCubic',
+            tolerance: 30,
+            duration: 800,
+            easing: 'easeOutQuad',
             container: window
         }, easeFunctions);
 
