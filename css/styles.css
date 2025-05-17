@@ -1550,21 +1550,28 @@ hr.fancy {
 /* works section styles */
 .works-portfolio .row {
     border-bottom: 1px solid var(--color-border);
-    padding-bottom: var(--vspace-1);
-    margin-bottom: var(--vspace-1);
+    padding-bottom: var(--vspace-0_75);
+    margin-bottom: var(--vspace-0_75);
+    position: relative;
 }
 
 .works-portfolio .row:last-child {
     border-bottom: none;
+    margin-bottom: 0;
+}
+
+.works-portfolio .column {
+    position: relative;
+    padding-bottom: 3.2rem;
 }
 
 .works-portfolio .text-pretitle {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.4rem;
 }
 
 .works-portfolio .item-title {
     font-family: var(--font-1);
-    font-size: var(--text-lg);
+    font-size: var(--text-md);
     line-height: 1.4;
     margin-top: 0;
     margin-bottom: 0.4rem;
@@ -1575,32 +1582,34 @@ hr.fancy {
     font-family: var(--font-2);
     font-size: var(--text-sm);
     line-height: 1.5;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     color: var(--color-2);
 }
 
 .works-portfolio .item-description {
-    font-size: var(--text-md);
-    line-height: 1.8;
-    margin-bottom: 1.2rem;
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
     max-width: 90%;
 }
 
 .works-portfolio .tech-stack {
     font-family: var(--font-2);
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--color-2);
-    margin-bottom: 1.6rem;
+    margin-bottom: 0;
 }
 
 .works-portfolio .text-link {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     font-weight: 500;
     color: var(--color-2);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.25rem;
     transition: all 0.3s;
+    position: absolute;
+    bottom: 0;
 }
 
 .works-portfolio .text-link:hover {
