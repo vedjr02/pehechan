@@ -1,0 +1,47 @@
+/* Photography link styles */
+.skills-list li.photography-link {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.skills-list li.photography-link:hover {
+    color: var(--color-2);
+    transform: translateY(-5px);
+}
+
+.skills-list li.photography-link::after {
+    content: "Let's explore";
+    position: absolute;
+    background-color: var(--color-2);
+    color: var(--color-body);
+    font-size: 1.4rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    font-family: var(--font-1);
+    font-weight: 500;
+}
+
+.skills-list li.photography-link:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Animation for click */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.skills-list li.photography-link.clicked {
+    animation: pulse 0.5s ease;
+    color: var(--color-2);
+}

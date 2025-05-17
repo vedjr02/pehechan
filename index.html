@@ -17,6 +17,7 @@
     ================================================== -->
     <link rel="stylesheet" href="css/vendor.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/photography-link.css">
 
     <!-- favicons
     ================================================== -->
@@ -173,8 +174,26 @@
                             <li>Computer Vision</li>
                             <li>Artificial Intelligence</li>
                             <li>Full Stack Development</li>
-                            <li>Photography</li>
+                            <li>Web Development</li>
+                            <li>Graphic Design</li>
+                            <li class="photography-link" id="photography-expertise">Photography</li>
                         </ul>
+                        
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const photographyLink = document.getElementById('photography-expertise');
+                                
+                                photographyLink.addEventListener('click', function() {
+                                    // Add clicked class for animation
+                                    this.classList.add('clicked');
+                                    
+                                    // Navigate to photography page after a short delay
+                                    setTimeout(function() {
+                                        window.location.href = 'photography.html';
+                                    }, 500);
+                                });
+                            });
+                        </script>
 
                     </div>
                 </div> <!-- end about-expertise -->
