@@ -128,16 +128,17 @@
      * (https://maketintsandshades.com/)
      */
     --color-black   : #000000;
-    --color-gray-19 : #020202;
-    --color-gray-18 : #040404;
-    --color-gray-17 : #060607;
-    --color-gray-16 : #080809;
-    --color-gray-15 : #0a0b0b;
-    --color-gray-14 : #0c0d0d;
-    --color-gray-13 : #0e0f0f;
-    --color-gray-12 : #101112;
-    --color-gray-11 : #121314;
-    --color-gray-10 : #141516;
+    --color-white   : #ffffff;
+    --color-gray-19 : #fafafa;
+    --color-gray-18 : #f5f5f5;
+    --color-gray-17 : #f0f0f0;
+    --color-gray-16 : #e8e8e8;
+    --color-gray-15 : #e0e0e0;
+    --color-gray-14 : #d8d8d8;
+    --color-gray-13 : #d0d0d0;
+    --color-gray-12 : #c8c8c8;
+    --color-gray-11 : #c0c0c0;
+    --color-gray-10 : #b8b8b8;
     --color-gray-9  : #2c2c2d;
     --color-gray-8  : #434445;
     --color-gray-7  : #5b5b5c;
@@ -151,10 +152,10 @@
 
     /* text
      */
-    --color-text        : var(--color-gray-4);
-    --color-text-dark   : var(--color-white);
-    --color-text-light  : var(--color-gray-7);
-    --color-placeholder : var(--color-gray-7);
+    --color-text         : rgba(0, 0, 0, .8);
+    --color-text-dark    : black;
+    --color-text-light   : rgba(0, 0, 0, .5);
+    --color-placeholder  : rgba(0, 0, 0, .3);
 
     /* buttons
      */
@@ -173,14 +174,14 @@
 
     /* preloader
      */
-    --color-preloader-bg : var(--color-gray-10);
-    --color-loader       : white;
-    --color-loader-light : rgba(255, 255, 255, 0.1);
+    --color-preloader-bg : var(--color-white);
+    --color-loader       : var(--color-1);
+    --color-loader-light : rgba(234, 190, 124, 0.1);
 
     /* others
      */
-    --color-body    : var(--color-gray-10);
-    --color-border  : rgba(255, 255, 255, .05);
+    --color-body    : var(--color-white);
+    --color-border  : rgba(0, 0, 0, .1);
     --border-radius : 3px;
 }
 
@@ -2874,7 +2875,7 @@ img.u-pull-left {
     content : "|";
     display : inline-block;
     padding : 0 .8rem 0 1rem;
-    color   : rgba(255, 255, 255, 0.1);
+    color   : rgba(0, 0, 0, 0.1);
 }
 
 .ss-copyright span:last-child::after {
@@ -2912,7 +2913,7 @@ img.u-pull-left {
 
 .ss-go-top a:focus svg path,
 .ss-go-top a:hover svg path {
-    fill : black;
+    fill : white;
 }
 
 .ss-go-top svg {
@@ -2922,7 +2923,7 @@ img.u-pull-left {
 }
 
 .ss-go-top svg path {
-    fill : white;
+    fill : var(--color-1);
 }
 
 /* ------------------------------------------------------------------- 
