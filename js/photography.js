@@ -6,114 +6,80 @@ document.addEventListener('DOMContentLoaded', function() {
         preloader.style.display = 'none';
     }
     
-    // Force immediate render of page
-    setTimeout(() => {
-        window.scrollTo(0, 0);
-    }, 10);
-    
-    // Get all gallery images
-    const galleryImages = document.querySelectorAll('.gallery-image img');
-    
-    // Process images in batches to improve performance
-    const processBatch = (startIndex, batchSize) => {
-        const endIndex = Math.min(startIndex + batchSize, galleryImages.length);
-        
-        for (let i = startIndex; i < endIndex; i++) {
-            const img = galleryImages[i];
-            img.setAttribute('loading', 'lazy');
-            img.setAttribute('decoding', 'async'); // Add async decoding
-            
-            // Store the full-size image path in a data attribute
-            const fullSizePath = img.getAttribute('src');
-            img.setAttribute('data-full-size', fullSizePath);
-            
-            // Add loading class
-            img.parentElement.classList.add('loading');
-            
-            // Create a low-quality version for faster loading
-            // In a real production environment, you would have actual thumbnails
-            // Here we're using the same image but with the blur effect in CSS
-            
-            // Remove loading class when image is loaded
-            img.onload = function() {
-                setTimeout(() => {
-                    img.parentElement.classList.remove('loading');
-                }, 300); // Delay to ensure smooth transition
-            };
-            
-            // Handle error
-            img.onerror = function() {
-                img.parentElement.classList.remove('loading');
-                img.parentElement.classList.add('error');
-            };
-        }
-        
-        // Process next batch if needed
-        if (endIndex < galleryImages.length) {
-            setTimeout(() => {
-                processBatch(endIndex, batchSize);
-            }, 200); // Increased delay between batches
-        }
-    };
-    
-    // Start processing images in batches of 3 (smaller batches)
-    processBatch(0, 3);
-
-    // Lightbox functionality
+    // Get all gallery items
+    const galleryItems = document.querySelectorAll('.gallery-item');
     const lightbox = document.querySelector('.lightbox');
     const lightboxImg = lightbox.querySelector('img');
+    const lightboxLoading = lightbox.querySelector('.lightbox-loading');
     const closeButton = lightbox.querySelector('.lightbox-close');
-    const loadingIndicator = document.createElement('div');
-    loadingIndicator.className = 'lightbox-loading';
-    lightbox.appendChild(loadingIndicator);
-
-    // Open lightbox with full-size image
-    galleryImages.forEach(img => {
-        img.addEventListener('click', () => {
-            // Show loading indicator
-            loadingIndicator.style.display = 'block';
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
-            
-            // Get full-size image path
-            const fullSizePath = img.getAttribute('data-full-size');
-            
-            // Create a new image to preload
-            const preloadImg = new Image();
-            preloadImg.onload = function() {
-                // Once loaded, update lightbox image
-                lightboxImg.src = fullSizePath;
-                loadingIndicator.style.display = 'none';
-            };
-            
-            preloadImg.onerror = function() {
-                // If full-size fails, use current image
-                lightboxImg.src = img.src;
-                loadingIndicator.style.display = 'none';
-            };
-            
-            // Start loading
-            preloadImg.src = fullSizePath;
-        });
-    });
-
-    // Close lightbox
-    const closeLightbox = () => {
+    
+    // Function to open the lightbox
+    function openLightbox(imagePath) {
+        // Show loading indicator
+        lightboxLoading.style.display = 'block';
+        lightboxImg.style.opacity = '0';
+        
+        // Show lightbox
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        
+        // Create a new image to preload
+        const preloadImg = new Image();
+        
+        preloadImg.onload = function() {
+            // Once loaded, update lightbox image
+            lightboxImg.src = imagePath;
+            setTimeout(() => {
+                lightboxImg.style.opacity = '1';
+                lightboxLoading.style.display = 'none';
+            }, 100);
+        };
+        
+        preloadImg.onerror = function() {
+            // Handle error
+            lightboxLoading.style.display = 'none';
+            alert('Failed to load image');
+        };
+        
+        // Start loading
+        preloadImg.src = imagePath;
+    }
+    
+    // Function to close the lightbox
+    function closeLightbox() {
         lightbox.classList.remove('active');
         document.body.style.overflow = ''; // Restore scrolling
+        
         // Clear the image src to stop any ongoing downloads
         setTimeout(() => {
             lightboxImg.src = '';
         }, 300);
-    };
-
+    }
+    
+    // Add click event to each gallery item
+    galleryItems.forEach(item => {
+        // Get the image path from data attribute
+        const imagePath = item.getAttribute('data-img');
+        
+        // Add click event
+        item.addEventListener('click', () => {
+            openLightbox(imagePath);
+        });
+        
+        // Create background style with a small colored gradient
+        const placeholder = item.querySelector('.placeholder');
+        const hue = Math.floor(Math.random() * 360); // Random hue
+        placeholder.style.background = `linear-gradient(45deg, hsl(${hue}, 15%, 20%), hsl(${hue}, 15%, 30%))`;
+    });
+    
+    // Close lightbox events
     closeButton.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) {
             closeLightbox();
         }
     });
-
+    
     // Close on escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && lightbox.classList.contains('active')) {
