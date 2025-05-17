@@ -156,55 +156,82 @@
                             <p class="attention-getter" data-animate-el style="font-family: var(--font-1); font-size: 2rem; line-height: 1.8; letter-spacing: 0.02em; margin: 2.5rem 0; color: #ffffff; position: relative; z-index: 1;">
                                 Beyond academics and technology, I have a keen interest in photography—a hobby that has helped me develop a strong eye for detail, creativity, and observation. It allows me to see the world from different perspectives and brings a unique balance to my analytical thinking, enhancing both my problem-solving approach and visual design sensibilities.
                             </p>
-                            <div style="position: relative;">
+                            <div style="position: relative; overflow: visible;" class="meme-wrapper">
                                 <a href="#0" class="btn btn--medium u-fullwidth" data-animate-el id="cv-button">Download CV</a>
-                                <div id="meme-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible;"></div>
                             </div>
                             
                             <script>
-                                document.addEventListener('DOMContentLoaded', function() {
+                            // Immediately execute this code
+                            (function() {
+                                // Wait for the DOM to be fully loaded
+                                window.addEventListener('load', function() {
+                                    // Get the button and its parent container
                                     const cvButton = document.getElementById('cv-button');
-                                    const memeContainer = document.getElementById('meme-container');
+                                    const memeWrapper = document.querySelector('.meme-wrapper');
                                     
+                                    if (!cvButton || !memeWrapper) {
+                                        console.error('Could not find CV button or wrapper');
+                                        return;
+                                    }
+                                    
+                                    // Add click event listener
                                     cvButton.addEventListener('click', function(e) {
                                         e.preventDefault();
+                                        console.log('CV button clicked!');
                                         
                                         // Create a new meme image
                                         const meme = document.createElement('img');
                                         meme.src = 'images/meme.jpg';
-                                        meme.style.position = 'absolute';
-                                        meme.style.width = '100px';
-                                        meme.style.height = 'auto';
-                                        meme.style.zIndex = '100';
-                                        meme.style.borderRadius = '5px';
-                                        meme.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+                                        meme.alt = 'Meme';
+                                        meme.className = 'meme-image';
                                         
-                                        // Random position around the button
-                                        const containerWidth = memeContainer.offsetWidth;
-                                        const containerHeight = memeContainer.offsetHeight;
+                                        // Set inline styles for positioning and appearance
+                                        Object.assign(meme.style, {
+                                            position: 'absolute',
+                                            width: '80px',
+                                            height: 'auto',
+                                            zIndex: '1000',
+                                            borderRadius: '5px',
+                                            boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
+                                            opacity: '0',
+                                            transition: 'opacity 0.3s ease',
+                                            pointerEvents: 'none'
+                                        });
                                         
-                                        // Generate random position within -200px to +200px of the button
-                                        const randomX = Math.random() * 400 - 200;
-                                        const randomY = Math.random() * 400 - 200;
+                                        // Get button dimensions and position
+                                        const buttonRect = cvButton.getBoundingClientRect();
+                                        const wrapperRect = memeWrapper.getBoundingClientRect();
                                         
+                                        // Calculate random position relative to the button
+                                        // Range: -300px to +300px from the center of the button
+                                        const randomX = (Math.random() * 600 - 300);
+                                        const randomY = (Math.random() * 600 - 300);
+                                        
+                                        // Position relative to the center of the button
                                         meme.style.left = `calc(50% + ${randomX}px)`;
                                         meme.style.top = `calc(50% + ${randomY}px)`;
-                                        meme.style.transform = 'translate(-50%, -50%) rotate(' + (Math.random() * 40 - 20) + 'deg)';
                                         
-                                        // Add fade-in effect
-                                        meme.style.opacity = '0';
-                                        meme.style.transition = 'opacity 0.3s ease';
+                                        // Add random rotation (-30 to +30 degrees)
+                                        const randomRotation = Math.random() * 60 - 30;
+                                        meme.style.transform = `translate(-50%, -50%) rotate(${randomRotation}deg)`;
                                         
-                                        // Add to container
-                                        memeContainer.appendChild(meme);
+                                        // Add to wrapper
+                                        memeWrapper.appendChild(meme);
                                         
-                                        // Trigger reflow
+                                        // Force reflow to ensure transition works
                                         void meme.offsetWidth;
                                         
                                         // Show the meme
                                         meme.style.opacity = '1';
+                                        
+                                        // Optional: Remove memes after they exceed a certain number
+                                        const allMemes = document.querySelectorAll('.meme-image');
+                                        if (allMemes.length > 50) {
+                                            memeWrapper.removeChild(allMemes[0]);
+                                        }
                                     });
                                 });
+                            })();
                             </script>
 
                         </div>
