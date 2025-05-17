@@ -1,17 +1,47 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Add loading="lazy" to all gallery images
+    // Remove preloader immediately
+    document.body.classList.remove('ss-preload');
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        preloader.style.display = 'none';
+    }
+    
+    // Get all gallery images
     const galleryImages = document.querySelectorAll('.gallery-image img');
-    galleryImages.forEach(img => {
-        img.setAttribute('loading', 'lazy');
+    
+    // Process images in batches to improve performance
+    const processBatch = (startIndex, batchSize) => {
+        const endIndex = Math.min(startIndex + batchSize, galleryImages.length);
         
-        // Add loading class for spinner
-        img.parentElement.classList.add('loading');
+        for (let i = startIndex; i < endIndex; i++) {
+            const img = galleryImages[i];
+            img.setAttribute('loading', 'lazy');
+            
+            // Add loading class
+            img.parentElement.classList.add('loading');
+            
+            // Remove loading class when image is loaded
+            img.onload = function() {
+                img.parentElement.classList.remove('loading');
+            };
+            
+            // Handle error
+            img.onerror = function() {
+                img.parentElement.classList.remove('loading');
+                img.parentElement.classList.add('error');
+            };
+        }
         
-        // Remove loading class when image is loaded
-        img.onload = function() {
-            img.parentElement.classList.remove('loading');
-        };
-    });
+        // Process next batch if needed
+        if (endIndex < galleryImages.length) {
+            setTimeout(() => {
+                processBatch(endIndex, batchSize);
+            }, 100);
+        }
+    };
+    
+    // Start processing images in batches of 8
+    processBatch(0, 8);
 
     // Lightbox functionality
     const lightbox = document.querySelector('.lightbox');
@@ -46,26 +76,4 @@ document.addEventListener('DOMContentLoaded', function() {
             closeLightbox();
         }
     });
-
-    // Preload visible images first
-    const preloadVisibleImages = () => {
-        const viewportHeight = window.innerHeight;
-        galleryImages.forEach(img => {
-            const rect = img.getBoundingClientRect();
-            // If image is in viewport or close to it
-            if (rect.top >= -viewportHeight && rect.top <= viewportHeight * 2) {
-                const src = img.getAttribute('src');
-                if (src) {
-                    const preloadImg = new Image();
-                    preloadImg.src = src;
-                }
-            }
-        });
-    };
-
-    // Initial preload
-    preloadVisibleImages();
-
-    // Preload on scroll
-    window.addEventListener('scroll', preloadVisibleImages, { passive: true });
 });
