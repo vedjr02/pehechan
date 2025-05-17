@@ -75,10 +75,45 @@
     vertical-align: bottom;
     transition: transform 0.4s ease-out;
     will-change: transform;
+    background-color: #2c2c2c; /* Default background while loading */
 }
 
-.gallery-image img.thumbnail:not([src]) {
+.gallery-image img.thumbnail:not([src]), 
+.gallery-image img.thumbnail[src=''], 
+.gallery-image img.thumbnail.error {
     background-color: #2c2c2c;
+    min-height: 200px; /* Ensure a minimum height */
+}
+
+/* Add a subtle loading indicator */
+.gallery-image {
+    position: relative;
+}
+
+.gallery-image::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(234, 190, 124, 0.2);
+    border-top: 3px solid var(--color-1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 1s linear infinite;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-image.loading::before {
+    opacity: 1;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .gallery-image:hover img {
