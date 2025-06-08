@@ -111,6 +111,13 @@
             box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
         }
 
+        .btn-primary:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         .btn-danger {
             background: linear-gradient(45deg, #f44336, #da190b);
             color: white;
@@ -217,6 +224,11 @@
             transform: translateX(5px);
         }
 
+        .leaderboard-item.highlight {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
         .rank {
             font-weight: bold;
             font-size: 1.2rem;
@@ -260,9 +272,38 @@
             border: 1px solid rgba(33, 150, 243, 0.3);
         }
 
+        .result-error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
         .loading {
             color: #aaa;
             font-style: italic;
+        }
+
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .status-online {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .status-offline {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -286,10 +327,19 @@
                 margin-right: 0;
                 width: 100%;
             }
+
+            .status-indicator {
+                top: 10px;
+                right: 10px;
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="status-indicator" id="statusIndicator">🔄 Connecting...</div>
+
     <div class="container">
         <div class="header">
             <h1>Photography Portfolio</h1>
@@ -302,7 +352,7 @@
             
             <div class="name-input-section" id="nameSection">
                 <input type="text" id="playerName" class="name-input" placeholder="Enter your name" maxlength="20">
-                <button onclick="startGame()" class="btn btn-primary">Start Game</button>
+                <button onclick="startGame()" class="btn btn-primary" id="startButton">Start Game</button>
             </div>
 
             <div class="game-area" id="gameArea">
@@ -332,7 +382,7 @@
         </div>
 
         <div class="leaderboard">
-            <h3>🏆 Top 10 Leaderboard</h3>
+            <h3>🏆 Live Leaderboard - Top 10</h3>
             <div id="leaderboardContent" class="loading">Loading leaderboard...</div>
         </div>
     </div>
@@ -343,20 +393,130 @@
         let clickCount = 0;
         let gameTimer;
         let playerName = '';
+        let serverOnline = false;
+        let lastPlayerId = null;
 
-        // Mock leaderboard data (in real implementation, this would come from backend)
-        let leaderboard = [
-            { name: "Vedant", score: 127 },
-            { name: "Alex", score: 115 },
-            { name: "Sarah", score: 108 },
-            { name: "Mike", score: 102 },
-            { name: "Emma", score: 98 },
-            { name: "John", score: 95 },
-            { name: "Lisa", score: 89 },
-            { name: "David", score: 87 },
-            { name: "Anna", score: 84 },
-            { name: "Tom", score: 81 }
-        ];
+        const API_BASE = window.location.origin + '/api';
+
+        // Check server status
+        async function checkServerStatus() {
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                serverOnline = data.success;
+                updateStatusIndicator();
+                return serverOnline;
+            } catch (error) {
+                console.error('Server check failed:', error);
+                serverOnline = false;
+                updateStatusIndicator();
+                return false;
+            }
+        }
+
+        function updateStatusIndicator() {
+            const indicator = document.getElementById('statusIndicator');
+            if (serverOnline) {
+                indicator.textContent = '🟢 Live';
+                indicator.className = 'status-indicator status-online';
+            } else {
+                indicator.textContent = '🔴 Offline';
+                indicator.className = 'status-indicator status-offline';
+            }
+        }
+
+        // Load leaderboard from server
+        async function loadLeaderboard() {
+            try {
+                const response = await fetch(`${API_BASE}/leaderboard`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayLeaderboard(data.data);
+                } else {
+                    throw new Error(data.error || 'Failed to load leaderboard');
+                }
+            } catch (error) {
+                console.error('Error loading leaderboard:', error);
+                document.getElementById('leaderboardContent').innerHTML = 
+                    '<div class="result-error">Failed to load leaderboard. Server may be offline.</div>';
+            }
+        }
+
+        // Submit score to server
+        async function submitScore(name, score) {
+            try {
+                const response = await fetch(`${API_BASE}/leaderboard`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, score })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayLeaderboard(data.data);
+                    return {
+                        success: true,
+                        rank: data.playerRank,
+                        message: data.message
+                    };
+                } else {
+                    throw new Error(data.error || 'Failed to submit score');
+                }
+            } catch (error) {
+                console.error('Error submitting score:', error);
+                return {
+                    success: false,
+                    error: error.message
+                };
+            }
+        }
+
+        function displayLeaderboard(leaderboardData) {
+            const content = document.getElementById('leaderboardContent');
+            
+            if (!leaderboardData || leaderboardData.length === 0) {
+                content.innerHTML = '<div class="loading">No scores yet. Be the first!</div>';
+                return;
+            }
+            
+            const listHTML = leaderboardData.map((player, index) => {
+                let rankClass = '';
+                let rankIcon = '';
+                let itemClass = 'leaderboard-item';
+                
+                if (index === 0) {
+                    rankClass = 'gold';
+                    rankIcon = '🥇';
+                } else if (index === 1) {
+                    rankClass = 'silver';
+                    rankIcon = '🥈';
+                } else if (index === 2) {
+                    rankClass = 'bronze';
+                    rankIcon = '🥉';
+                } else {
+                    rankIcon = `#${index + 1}`;
+                }
+
+                // Highlight the last player's score
+                if (player.id === lastPlayerId) {
+                    itemClass += ' highlight';
+                }
+                
+                return `
+                    <div class="${itemClass}">
+                        <div class="rank ${rankClass}">${rankIcon}</div>
+                        <div class="player-name">${player.name}</div>
+                        <div class="score">${player.score}</div>
+                    </div>
+                `;
+            }).join('');
+            
+            content.innerHTML = listHTML;
+        }
 
         function startGame() {
             const nameInput = document.getElementById('playerName');
@@ -364,6 +524,11 @@
             
             if (!playerName) {
                 alert('Please enter your name!');
+                return;
+            }
+
+            if (!serverOnline) {
+                alert('Server is offline. Please try again later.');
                 return;
             }
 
@@ -406,81 +571,40 @@
             document.getElementById('cps').textContent = (clickCount / (10 - timeLeft) || 0).toFixed(1);
         }
 
-        function endGame() {
+        async function endGame() {
             gameActive = false;
             clearInterval(gameTimer);
             
             const button = document.getElementById('clickButton');
             button.disabled = true;
-            button.textContent = 'GAME OVER';
+            button.textContent = 'SUBMITTING...';
             
             const finalScore = clickCount;
             const resultDiv = document.getElementById('resultMessage');
             
-            // Add to leaderboard
-            addToLeaderboard(playerName, finalScore);
+            // Submit score to server
+            const result = await submitScore(playerName, finalScore);
             
-            // Show result
-            resultDiv.innerHTML = `
-                <div class="result-success">
-                    🎉 Great job, ${playerName}!<br>
-                    Final Score: ${finalScore} clicks in 10 seconds<br>
-                    CPS: ${(finalScore / 10).toFixed(1)}
-                </div>
-            `;
-            
-            updateLeaderboard();
-        }
-
-        function addToLeaderboard(name, score) {
-            // Add new score
-            leaderboard.push({ name: name, score: score });
-            
-            // Sort by score (descending)
-            leaderboard.sort((a, b) => b.score - a.score);
-            
-            // Keep only top 10
-            leaderboard = leaderboard.slice(0, 10);
-            
-            // In real implementation, this would be sent to backend
-            // saveToBackend(leaderboard);
-        }
-
-        function updateLeaderboard() {
-            const content = document.getElementById('leaderboardContent');
-            
-            if (leaderboard.length === 0) {
-                content.innerHTML = '<div class="loading">No scores yet. Be the first!</div>';
-                return;
-            }
-            
-            const listHTML = leaderboard.map((player, index) => {
-                let rankClass = '';
-                let rankIcon = '';
-                
-                if (index === 0) {
-                    rankClass = 'gold';
-                    rankIcon = '🥇';
-                } else if (index === 1) {
-                    rankClass = 'silver';
-                    rankIcon = '🥈';
-                } else if (index === 2) {
-                    rankClass = 'bronze';
-                    rankIcon = '🥉';
-                } else {
-                    rankIcon = `#${index + 1}`;
-                }
-                
-                return `
-                    <div class="leaderboard-item">
-                        <div class="rank ${rankClass}">${rankIcon}</div>
-                        <div class="player-name">${player.name}</div>
-                        <div class="score">${player.score}</div>
+            if (result.success) {
+                resultDiv.innerHTML = `
+                    <div class="result-success">
+                        🎉 Great job, ${playerName}!<br>
+                        Final Score: ${finalScore} clicks in 10 seconds<br>
+                        CPS: ${(finalScore / 10).toFixed(1)}<br>
+                        Your Rank: #${result.rank}
                     </div>
                 `;
-            }).join('');
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="result-error">
+                        Score: ${finalScore} clicks<br>
+                        ❌ Failed to submit to leaderboard<br>
+                        ${result.error}
+                    </div>
+                `;
+            }
             
-            content.innerHTML = listHTML;
+            button.textContent = 'GAME OVER';
         }
 
         function resetGame() {
@@ -494,11 +618,19 @@
             
             // Clear name input
             document.getElementById('playerName').value = '';
+            lastPlayerId = null;
         }
 
-        // Initialize leaderboard on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            updateLeaderboard();
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkServerStatus();
+            await loadLeaderboard();
+            
+            // Refresh leaderboard every 30 seconds
+            setInterval(loadLeaderboard, 30000);
+            
+            // Check server status every 10 seconds
+            setInterval(checkServerStatus, 10000);
         });
 
         // Add Enter key support for name input
