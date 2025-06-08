@@ -1,150 +1,140 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html class="no-js ss-preload" lang="en">
 <head>
     <meta charset="utf-8">
     <title>Photography | Vedant</title>
-    <meta name="description" content="Photography portfolio showcasing my best shots">
-    <meta name="author" content="Vedant">
+    <meta name="description" content="Photography portfolio of Vedant Ambre - Minimalist, modern, and fast-loading grid gallery.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="stylesheet" href="css/vendor.css">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/photography.css">
     <link rel="stylesheet" href="css/weather-widget.css">
-
-    <script src="js/modernizr.js"></script>
-    <script defer src="js/fontawesome/all.min.js"></script>
+    <style>
+        body { background: #181818; color: #fff; }
+        .photo-hero {
+            text-align: center;
+            padding: 5rem 1rem 2rem 1rem;
+        }
+        .photo-hero h1 {
+            font-size: 3rem;
+            font-family: var(--font-1, 'Montserrat', sans-serif);
+            margin-bottom: 1rem;
+            letter-spacing: 0.04em;
+        }
+        .photo-hero p {
+            font-size: 1.3rem;
+            color: #eab07c;
+            margin-bottom: 0;
+        }
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 2vw 4rem 2vw;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #222;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+            transition: box-shadow 0.2s;
+        }
+        .photo-item:hover {
+            box-shadow: 0 4px 32px rgba(234, 190, 124, 0.18);
+        }
+        .photo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s cubic-bezier(.4,2,.6,1);
+        }
+        .photo-item:hover .photo-img {
+            transform: scale(1.04) rotate(-1deg);
+        }
+        /* Maintain aspect ratio for vertical/horizontal */
+        .photo-item.ratio-vert {
+            aspect-ratio: 3/4;
+        }
+        .photo-item.ratio-horiz {
+            aspect-ratio: 4/3;
+        }
+        @media (max-width: 600px) {
+            .photo-hero h1 { font-size: 2.1rem; }
+            .photo-grid { gap: 1rem; padding: 1rem 0.5rem 2rem 0.5rem; }
+        }
+    </style>
 </head>
+<body id="top">
+    <div class="s-pagewrap">
+        <!-- Header (copied from index.html for consistency) -->
+        <header class="s-header">
+            <div class="header-mobile">
+                <span class="mobile-home-link"><a href="index.html">Vedant.</a></span>
+                <a class="mobile-menu-toggle" href="#0"><span>Menu</span></a>
+            </div>
+            <div class="row wide main-nav-wrap">
+                <nav class="column lg-12 main-nav">
+                    <ul>
+                        <li><a href="index.html" class="home-link">Vedant.</a></li>
+                        <li><a class="smoothscroll" href="index.html#intro">Intro</a></li>
+                        <li><a class="smoothscroll" href="index.html#about">About</a></li>
+                        <li><a class="smoothscroll" href="index.html#works">Works</a></li>
+                        <li><a href="photography.html" style="color: var(--color-1, #eabe7c);">Photography</a></li>
+                        <li><a class="smoothscroll" href="index.html#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
 
-<body id="top" class="ss-preload">
+        <main class="s-content">
+            <section class="photo-hero">
+                <h1>Photography Portfolio</h1>
+                <p>Minimalist, modern, and fast-loading gallery. <br> Vertical & horizontal images, curated by Vedant.</p>
+            </section>
+            <section>
+                <div class="photo-grid">
+                    <!-- Example images, replace src with your own images in the images/ directory -->
+                    <div class="photo-item ratio-vert">
+                        <img class="photo-img" src="images/photo1-vert.jpg" alt="Vertical Sample 1" loading="lazy">
+                    </div>
+                    <div class="photo-item ratio-horiz">
+                        <img class="photo-img" src="images/photo2-horiz.jpg" alt="Horizontal Sample 2" loading="lazy">
+                    </div>
+                    <div class="photo-item ratio-vert">
+                        <img class="photo-img" src="images/photo3-vert.jpg" alt="Vertical Sample 3" loading="lazy">
+                    </div>
+                    <div class="photo-item ratio-horiz">
+                        <img class="photo-img" src="images/photo4-horiz.jpg" alt="Horizontal Sample 4" loading="lazy">
+                    </div>
+                    <div class="photo-item ratio-vert">
+                        <img class="photo-img" src="images/photo5-vert.jpg" alt="Vertical Sample 5" loading="lazy">
+                    </div>
+                    <div class="photo-item ratio-horiz">
+                        <img class="photo-img" src="images/photo6-horiz.jpg" alt="Horizontal Sample 6" loading="lazy">
+                    </div>
+                    <!-- Add more images as needed, alternating ratio-vert and ratio-horiz for best effect -->
+                </div>
+            </section>
+        </main>
 
-    <!-- preloader -->
-    <div id="preloader" style="display: none;">
-        <div id="loader"></div>
+        <footer class="s-footer">
+            <div class="row">
+                <div class="column ss-copyright">
+                    <span>© Copyright Vedant 2025</span> 
+                </div>
+                <div class="ss-go-top">
+                    <a class="smoothscroll" title="Back to Top" href="#top">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479 9-.764.646-6.236-7.53v21.884h-1v-21.883z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
     </div>
-
-    <!-- header -->
-    <header class="s-header">
-        <div class="row s-header__nav-wrap">
-            <nav class="column lg-12 main-nav">
-                <ul>
-                    <li><a href="index.html" class="home-link">Vedant.</a></li>
-                    <li><a href="index.html#intro">Intro</a></li>
-                    <li><a href="index.html#about">About</a></li>
-                    <li><a href="index.html#works">Works</a></li>
-                    <li class="current"><a href="photography.html">Photography</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- content -->
-    <main class="s-content">
-        <section id="photography" class="s-photography target-section">
-            <div class="row section-header">
-                <div class="column lg-19">
-                    <h2 class="text-pretitle">Photography</h2>
-                    <p class="h1">
-                        Capturing moments through my lens.
-                    </p>
-                </div>
-            </div>
-
-            <div class="row gallery-wrapper">
-                <!-- Row 1 -->
-                <div class="gallery-item" data-img="images/photography/BESTTTT.jpg">
-                    <div class="gallery-image">
-                        <img src="images/photography/BESTTTT.jpg" alt="" loading="lazy" class="thumbnail">
-                    </div>
-                </div>
-                <div class="gallery-item" data-img="images/photography/Final.jpg">
-                    <div class="gallery-image">
-                        <img src="images/photography/Final.jpg" alt="" loading="lazy" class="thumbnail">
-                    </div>
-                </div>
-                <div class="gallery-item" data-img="images/photography/GG_03.jpg">
-                    <div class="gallery-image">
-                        <img src="images/photography/GG_03.jpg" alt="" loading="lazy" class="thumbnail">
-                    </div>
-                </div>
-                <div class="gallery-item" data-img="images/photography/GG_04.jpg">
-                    <div class="gallery-image">
-                        <img src="images/photography/GG_04.jpg" alt="" loading="lazy" class="thumbnail">
-                    </div>
-                </div>
-                
-                <!-- Row 2 -->
-                <div class="gallery-item" data-img="images/photography/GG_05.jpg">
-                    <div class="gallery-image">
-                        <img src="images/photography/GG_05.jpg" alt="" loading="lazy" class="thumbnail">
-                    </div>
-                </div>
-                <div class="gallery-item" data-img="images/photography/_MG_2304.jpg">
-                    <div class="gallery-image">
-                        <img src="images/photography/_MG_2304.jpg" alt="" loading="lazy" class="thumbnail">
-                    </div>
-                </div>
-                <div class="gallery-item" data-img="images/photography/_MG_2819-4.jpg">
-                    <div class="gallery-image">
-                        <img src="images/photography/_MG_2819-4.jpg" alt="" loading="lazy" class="thumbnail">
-                    </div>
-                </div>
-                <div class="gallery-item" data-img="images/photography/_MG_2892.jpg">
-                    <div class="gallery-image">
-                        <img src="images/photography/_MG_2892.jpg" alt="" loading="lazy" class="thumbnail">
-                    </div>
-                </div>
-                
-                <!-- Row 3 -->
-                <div class="gallery-item" data-img="images/photography/_MG_3016-Edit.jpg">
-                    <div class="gallery-image">
-                        <img src="images/photography/_MG_3016-Edit.jpg" alt="" loading="lazy" class="thumbnail">
-                    </div>
-                </div>
-                <div class="gallery-item" data-img="images/photography/_MG_4172.jpg">
-                    <div class="gallery-image">
-                        <img src="images/photography/_MG_4172.jpg" alt="" loading="lazy" class="thumbnail">
-                    </div>
-                </div>
-                <div class="gallery-item" data-img="images/photography/_MG_4740.jpg">
-                    <div class="gallery-image">
-                        <img src="images/photography/_MG_4740.jpg" alt="" loading="lazy" class="thumbnail">
-                    </div>
-                </div>
-                <div class="gallery-item" data-img="images/photography/_MG_4977.jpg">
-                    <div class="gallery-image">
-                        <img src="images/photography/_MG_4977.jpg" alt="" loading="lazy" class="thumbnail">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Lightbox -->
-            <div class="lightbox">
-                <button class="lightbox-close">&times;</button>
-                <div class="lightbox-loading"></div>
-                <img src="" alt="">
-            </div>
-        </section>
-    </main>
-
-    <!-- footer -->
-    <footer class="s-footer">
-        <div class="row">
-            <div class="column ss-copyright">
-                <span>© Copyright Vedant 2025</span> 
-            </div>
-            <div class="ss-go-top">
-                <a class="smoothscroll" title="Back to Top" href="#top">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479 9-.764.646-6.236-7.53v21.884h-1v-21.883z"/></svg>
-                </a>
-            </div>
-        </div>
-    </footer>
-
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/photography.js"></script>
     <script src="js/weather-feature.js"></script>
 </body>
 </html>
