@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/vendor.css">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/weather-widget.css">
     <style>
         body { background: #181818; color: #fff; }
         .photo-hero {
@@ -23,7 +22,14 @@
         .photo-hero p {
             font-size: 1.3rem;
             color: #eab07c;
-            margin-bottom: 0;
+            margin-bottom: 0.5rem;
+        }
+        .photo-hero .signature {
+            font-size: 1.1rem;
+            color: #aaa;
+            margin-top: 1.5rem;
+            font-style: italic;
+            letter-spacing: 0.03em;
         }
         .photo-grid {
             display: grid;
@@ -36,9 +42,10 @@
         .photo-item {
             position: relative;
             overflow: hidden;
-            border-radius: 12px;
+            border-radius: 14px;
             background: #222;
             box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+            cursor: pointer;
             transition: box-shadow 0.2s;
         }
         .photo-item:hover {
@@ -52,24 +59,91 @@
             transition: transform 0.4s cubic-bezier(.4,2,.6,1);
         }
         .photo-item:hover .photo-img {
-            transform: scale(1.04) rotate(-1deg);
+            transform: scale(1.07) rotate(-1deg);
         }
-        /* Maintain aspect ratio for vertical/horizontal */
+        .photo-overlay {
+            position: absolute;
+            left: 0; top: 0; right: 0; bottom: 0;
+            background: linear-gradient(120deg, rgba(30,30,30,0.0) 60%, rgba(234,190,124,0.08) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .photo-item:hover .photo-overlay {
+            opacity: 1;
+        }
+        .photo-caption {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            background: rgba(24,24,24,0.7);
+            color: #eab07c;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .photo-item:hover .photo-caption {
+            opacity: 1;
+        }
         .photo-item.ratio-vert {
             aspect-ratio: 3/4;
         }
         .photo-item.ratio-horiz {
             aspect-ratio: 4/3;
         }
+        /* Lightbox styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0; width: 100vw; height: 100vh;
+            background: rgba(20,20,20,0.97);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox-img {
+            max-width: 90vw;
+            max-height: 80vh;
+            border-radius: 12px;
+            box-shadow: 0 4px 32px rgba(234, 190, 124, 0.18);
+            margin-bottom: 1.5rem;
+        }
+        .lightbox-caption {
+            color: #eab07c;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            font-size: 2.5rem;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 10001;
+            transition: color 0.2s;
+        }
+        .lightbox-close:hover {
+            color: #eab07c;
+        }
         @media (max-width: 600px) {
             .photo-hero h1 { font-size: 2.1rem; }
             .photo-grid { gap: 1rem; padding: 1rem 0.5rem 2rem 0.5rem; }
+            .lightbox-img { max-width: 98vw; max-height: 60vh; }
+            .lightbox-close { top: 1rem; right: 1rem; font-size: 2rem; }
         }
     </style>
 </head>
 <body id="top">
     <div class="s-pagewrap">
-        <!-- Header (copied from index.html for consistency) -->
         <header class="s-header">
             <div class="header-mobile">
                 <span class="mobile-home-link"><a href="index.html">Vedant.</a></span>
@@ -88,38 +162,55 @@
                 </nav>
             </div>
         </header>
-
         <main class="s-content">
             <section class="photo-hero">
                 <h1>Photography Portfolio</h1>
-                <p>Minimalist, modern, and fast-loading gallery. <br> Vertical & horizontal images, curated by Vedant.</p>
+                <p>Minimalist, modern, and fast-loading gallery.<br>Curated moments by Vedant Ambre.</p>
+                <div class="signature">“Photography is the story I fail to put into words.”</div>
             </section>
             <section>
                 <div class="photo-grid">
-                    <!-- Example images, replace src with your own images in the images/ directory -->
-                    <div class="photo-item ratio-vert">
-                        <img class="photo-img" src="images/photo1-vert.jpg" alt="Vertical Sample 1" loading="lazy">
+                    <!-- Replace src and caption with your own images and descriptions -->
+                    <div class="photo-item ratio-vert" data-caption="Urban solitude, Mumbai">
+                        <img class="photo-img" src="images/photo1-vert.jpg" alt="Urban solitude, Mumbai" loading="lazy">
+                        <div class="photo-overlay"></div>
+                        <div class="photo-caption">Urban solitude, Mumbai</div>
                     </div>
-                    <div class="photo-item ratio-horiz">
-                        <img class="photo-img" src="images/photo2-horiz.jpg" alt="Horizontal Sample 2" loading="lazy">
+                    <div class="photo-item ratio-horiz" data-caption="Golden hour by the sea">
+                        <img class="photo-img" src="images/photo2-horiz.jpg" alt="Golden hour by the sea" loading="lazy">
+                        <div class="photo-overlay"></div>
+                        <div class="photo-caption">Golden hour by the sea</div>
                     </div>
-                    <div class="photo-item ratio-vert">
-                        <img class="photo-img" src="images/photo3-vert.jpg" alt="Vertical Sample 3" loading="lazy">
+                    <div class="photo-item ratio-vert" data-caption="Reflections in the city">
+                        <img class="photo-img" src="images/photo3-vert.jpg" alt="Reflections in the city" loading="lazy">
+                        <div class="photo-overlay"></div>
+                        <div class="photo-caption">Reflections in the city</div>
                     </div>
-                    <div class="photo-item ratio-horiz">
-                        <img class="photo-img" src="images/photo4-horiz.jpg" alt="Horizontal Sample 4" loading="lazy">
+                    <div class="photo-item ratio-horiz" data-caption="Monsoon streets">
+                        <img class="photo-img" src="images/photo4-horiz.jpg" alt="Monsoon streets" loading="lazy">
+                        <div class="photo-overlay"></div>
+                        <div class="photo-caption">Monsoon streets</div>
                     </div>
-                    <div class="photo-item ratio-vert">
-                        <img class="photo-img" src="images/photo5-vert.jpg" alt="Vertical Sample 5" loading="lazy">
+                    <div class="photo-item ratio-vert" data-caption="Chasing light">
+                        <img class="photo-img" src="images/photo5-vert.jpg" alt="Chasing light" loading="lazy">
+                        <div class="photo-overlay"></div>
+                        <div class="photo-caption">Chasing light</div>
                     </div>
-                    <div class="photo-item ratio-horiz">
-                        <img class="photo-img" src="images/photo6-horiz.jpg" alt="Horizontal Sample 6" loading="lazy">
+                    <div class="photo-item ratio-horiz" data-caption="Stillness in chaos">
+                        <img class="photo-img" src="images/photo6-horiz.jpg" alt="Stillness in chaos" loading="lazy">
+                        <div class="photo-overlay"></div>
+                        <div class="photo-caption">Stillness in chaos</div>
                     </div>
-                    <!-- Add more images as needed, alternating ratio-vert and ratio-horiz for best effect -->
+                    <!-- Add more images as needed -->
                 </div>
             </section>
+            <!-- Lightbox Modal -->
+            <div class="lightbox" id="lightbox">
+                <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+                <img class="lightbox-img" id="lightbox-img" src="" alt="">
+                <div class="lightbox-caption" id="lightbox-caption"></div>
+            </div>
         </main>
-
         <footer class="s-footer">
             <div class="row">
                 <div class="column ss-copyright">
@@ -135,6 +226,37 @@
     </div>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/weather-feature.js"></script>
-</body>
+    <script>
+    // Minimalist Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxClose = document.getElementById('lightbox-close');
+    document.querySelectorAll('.photo-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const img = this.querySelector('img');
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightboxCaption.textContent = this.getAttribute('data-caption') || img.alt || '';
+            lightbox.classList.add('active');
+        });
+    });
+    lightboxClose.addEventListener('click', function() {
+        lightbox.classList.remove('active');
+        lightboxImg.src = '';
+    });
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            lightbox.classList.remove('active');
+            lightboxImg.src = '';
+        }
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            lightbox.classList.remove('active');
+            lightboxImg.src = '';
+        }
+    });
+    </script>
+    </body>
 </html>
