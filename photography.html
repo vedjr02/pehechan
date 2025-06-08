@@ -1,55 +1,47 @@
 <!DOCTYPE html>
-<html class="no-js ss-preload" lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Photography | Vedant</title>
-    <meta name="description" content="Photography portfolio of Vedant Ambre - Minimalist, modern, and fast-loading grid gallery.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/vendor.css">
-    <link rel="stylesheet" href="css/styles.css">
     <style>
-        body { background: #181818; color: #fff; }
+        body { background: #181818; color: #fff; margin: 0; font-family: 'Montserrat', Arial, sans-serif; }
         .photo-hero {
             text-align: center;
-            padding: 5rem 1rem 2rem 1rem;
+            padding: 3rem 1rem 1.5rem 1rem;
         }
         .photo-hero h1 {
-            font-size: 3rem;
-            font-family: var(--font-1, 'Montserrat', sans-serif);
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            margin-bottom: 0.7rem;
             letter-spacing: 0.04em;
         }
         .photo-hero p {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: #eab07c;
             margin-bottom: 0.5rem;
         }
         .photo-hero .signature {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #aaa;
-            margin-top: 1.5rem;
+            margin-top: 1.2rem;
             font-style: italic;
-            letter-spacing: 0.03em;
         }
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-            padding: 2rem 2vw 4rem 2vw;
-            max-width: 1400px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            padding: 1.5rem 2vw 2.5rem 2vw;
+            max-width: 1200px;
             margin: 0 auto;
         }
         .photo-item {
             position: relative;
             overflow: hidden;
-            border-radius: 14px;
+            border-radius: 12px;
             background: #222;
             box-shadow: 0 2px 16px rgba(0,0,0,0.18);
             cursor: pointer;
-            transition: box-shadow 0.2s;
-        }
-        .photo-item:hover {
-            box-shadow: 0 4px 32px rgba(234, 190, 124, 0.18);
+            aspect-ratio: 4/3;
         }
         .photo-img {
             width: 100%;
@@ -61,36 +53,19 @@
         .photo-item:hover .photo-img {
             transform: scale(1.07) rotate(-1deg);
         }
-        .photo-overlay {
-            position: absolute;
-            left: 0; top: 0; right: 0; bottom: 0;
-            background: linear-gradient(120deg, rgba(30,30,30,0.0) 60%, rgba(234,190,124,0.08) 100%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-        .photo-item:hover .photo-overlay {
-            opacity: 1;
-        }
         .photo-caption {
             position: absolute;
             left: 0; right: 0; bottom: 0;
             background: rgba(24,24,24,0.7);
             color: #eab07c;
             font-size: 1rem;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 1rem;
             opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
         }
         .photo-item:hover .photo-caption {
             opacity: 1;
-        }
-        .photo-item.ratio-vert {
-            aspect-ratio: 3/4;
-        }
-        .photo-item.ratio-horiz {
-            aspect-ratio: 4/3;
         }
         /* Lightbox styles */
         .lightbox {
@@ -111,19 +86,19 @@
             max-height: 80vh;
             border-radius: 12px;
             box-shadow: 0 4px 32px rgba(234, 190, 124, 0.18);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
         .lightbox-caption {
             color: #eab07c;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
         .lightbox-close {
             position: absolute;
-            top: 2.5rem;
-            right: 2.5rem;
-            font-size: 2.5rem;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 2.2rem;
             color: #fff;
             background: none;
             border: none;
@@ -135,92 +110,61 @@
             color: #eab07c;
         }
         @media (max-width: 600px) {
-            .photo-hero h1 { font-size: 2.1rem; }
-            .photo-grid { gap: 1rem; padding: 1rem 0.5rem 2rem 0.5rem; }
+            .photo-hero h1 { font-size: 1.5rem; }
+            .photo-grid { gap: 0.7rem; padding: 1rem 0.5rem 1.5rem 0.5rem; }
             .lightbox-img { max-width: 98vw; max-height: 60vh; }
-            .lightbox-close { top: 1rem; right: 1rem; font-size: 2rem; }
+            .lightbox-close { top: 0.7rem; right: 1rem; font-size: 1.5rem; }
         }
+        a { color: #eab07c; text-decoration: none; }
     </style>
 </head>
-<body id="top">
-    <div class="s-pagewrap">
-        <header class="s-header">
-            <div class="header-mobile">
-                <span class="mobile-home-link"><a href="index.html">Vedant.</a></span>
-                <a class="mobile-menu-toggle" href="#0"><span>Menu</span></a>
-            </div>
-            <div class="row wide main-nav-wrap">
-                <nav class="column lg-12 main-nav">
-                    <ul>
-                        <li><a href="index.html" class="home-link">Vedant.</a></li>
-                        <li><a class="smoothscroll" href="index.html#intro">Intro</a></li>
-                        <li><a class="smoothscroll" href="index.html#about">About</a></li>
-                        <li><a class="smoothscroll" href="index.html#works">Works</a></li>
-                        <li><a href="photography.html" style="color: var(--color-1, #eabe7c);">Photography</a></li>
-                        <li><a class="smoothscroll" href="index.html#contact">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-        <main class="s-content">
-            <section class="photo-hero">
-                <h1>Photography Portfolio</h1>
-                <p>Minimalist, modern, and fast-loading gallery.<br>Curated moments by Vedant Ambre.</p>
-                <div class="signature">“Photography is the story I fail to put into words.”</div>
-            </section>
-            <section>
-                <div class="photo-grid">
-                    <div class="photo-item ratio-vert" data-caption="Urban solitude, Mumbai">
-                        <img class="photo-img" src="images/photography/_MG_2304.jpg" alt="Urban solitude, Mumbai" loading="lazy">
-                        <div class="photo-overlay"></div>
-                        <div class="photo-caption">Urban solitude, Mumbai</div>
-                    </div>
-                    <div class="photo-item ratio-horiz" data-caption="Golden hour by the sea">
-                        <img class="photo-img" src="images/photography/_MG_2333.jpg" alt="Golden hour by the sea" loading="lazy">
-                        <div class="photo-overlay"></div>
-                        <div class="photo-caption">Golden hour by the sea</div>
-                    </div>
-                    <div class="photo-item ratio-vert" data-caption="Reflections in the city">
-                        <img class="photo-img" src="images/photography/_MG_2523.jpg" alt="Reflections in the city" loading="lazy">
-                        <div class="photo-overlay"></div>
-                        <div class="photo-caption">Reflections in the city</div>
-                    </div>
-                    <div class="photo-item ratio-horiz" data-caption="Monsoon streets">
-                        <img class="photo-img" src="images/photography/_MG_2892.jpg" alt="Monsoon streets" loading="lazy">
-                        <div class="photo-overlay"></div>
-                        <div class="photo-caption">Monsoon streets</div>
-                    </div>
-                    <div class="photo-item ratio-vert" data-caption="Chasing light">
-                        <img class="photo-img" src="images/photography/_MG_3016-Edit.jpg" alt="Chasing light" loading="lazy">
-                        <div class="photo-overlay"></div>
-                        <div class="photo-caption">Chasing light</div>
-                    </div>
-                    <div class="photo-item ratio-horiz" data-caption="Stillness in chaos">
-                        <img class="photo-img" src="images/photography/_MG_3147-2.jpg" alt="Stillness in chaos" loading="lazy">
-                        <div class="photo-overlay"></div>
-                        <div class="photo-caption">Stillness in chaos</div>
-                    </div>
+<body>
+    <header style="text-align:center; padding:1.2rem 0 0.5rem 0;">
+        <a href="index.html" style="font-size:1.3rem; color:#eab07c; font-weight:bold; letter-spacing:0.04em;">Vedant.</a>
+    </header>
+    <main>
+        <section class="photo-hero">
+            <h1>Photography Portfolio</h1>
+            <p>Minimalist, modern, and fast-loading gallery.<br>Curated moments by Vedant Ambre.</p>
+            <div class="signature">“Photography is the story I fail to put into words.”</div>
+        </section>
+        <section>
+            <div class="photo-grid">
+                <div class="photo-item" data-caption="Urban solitude, Mumbai">
+                    <img class="photo-img" src="images/photography/_MG_2304.jpg" alt="Urban solitude, Mumbai" loading="lazy">
+                    <div class="photo-caption">Urban solitude, Mumbai</div>
                 </div>
-            </section>
-            <div class="lightbox" id="lightbox">
-                <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
-                <img class="lightbox-img" id="lightbox-img" src="" alt="">
-                <div class="lightbox-caption" id="lightbox-caption"></div>
-            </div>
-        </main>
-        <footer class="s-footer">
-            <div class="row">
-                <div class="column ss-copyright">
-                    <span>© Copyright Vedant 2025</span> 
+                <div class="photo-item" data-caption="Golden hour by the sea">
+                    <img class="photo-img" src="images/photography/_MG_2333.jpg" alt="Golden hour by the sea" loading="lazy">
+                    <div class="photo-caption">Golden hour by the sea</div>
                 </div>
-                <div class="ss-go-top">
-                    <a class="smoothscroll" title="Back to Top" href="#top">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479 9-.764.646-6.236-7.53v21.884h-1v-21.883z"/></svg>
-                    </a>
+                <div class="photo-item" data-caption="Reflections in the city">
+                    <img class="photo-img" src="images/photography/_MG_2523.jpg" alt="Reflections in the city" loading="lazy">
+                    <div class="photo-caption">Reflections in the city</div>
+                </div>
+                <div class="photo-item" data-caption="Monsoon streets">
+                    <img class="photo-img" src="images/photography/_MG_2892.jpg" alt="Monsoon streets" loading="lazy">
+                    <div class="photo-caption">Monsoon streets</div>
+                </div>
+                <div class="photo-item" data-caption="Chasing light">
+                    <img class="photo-img" src="images/photography/_MG_3016-Edit.jpg" alt="Chasing light" loading="lazy">
+                    <div class="photo-caption">Chasing light</div>
+                </div>
+                <div class="photo-item" data-caption="Stillness in chaos">
+                    <img class="photo-img" src="images/photography/_MG_3147-2.jpg" alt="Stillness in chaos" loading="lazy">
+                    <div class="photo-caption">Stillness in chaos</div>
                 </div>
             </div>
-        </footer>
-    </div>
+        </section>
+        <div class="lightbox" id="lightbox">
+            <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+            <img class="lightbox-img" id="lightbox-img" src="" alt="">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </main>
+    <footer style="text-align:center; color:#aaa; font-size:0.95rem; padding:1.5rem 0 0.7rem 0;">
+        &copy; Copyright Vedant 2025
+    </footer>
     <script>
     // Minimalist Lightbox
     const lightbox = document.getElementById('lightbox');
@@ -253,5 +197,5 @@
         }
     });
     </script>
-    </body>
+</body>
 </html>
