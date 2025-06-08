@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photography Portfolio - Vedant Ambre</title>
-    
+    <title>Photography Portfolio - Under Development</title>
     <style>
         * {
             margin: 0;
@@ -12,463 +11,506 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #000000;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
             color: #ffffff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav {
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
+            justify-content: center;
+            padding: 2rem;
         }
 
-        .logo {
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .header {
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        .name-input-section {
+            margin-bottom: 2rem;
+        }
+
+        .name-input {
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            text-align: center;
+            margin-right: 10px;
+            min-width: 200px;
+        }
+
+        .name-input::placeholder {
+            color: #aaa;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, #f44336, #da190b);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
+        }
+
+        .game-area {
+            display: none;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            min-width: 120px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
             font-size: 1.5rem;
             font-weight: bold;
             color: #ffffff;
-            text-decoration: none;
-            letter-spacing: 2px;
         }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: #cccccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .nav-links a:hover {
-            color: #ffffff;
-        }
-
-        /* Gallery Section - Zero Gaps */
-        .gallery-section {
-            padding-top: 4rem;
-            width: 100vw;
-            margin: 0;
-        }
-
-        .gallery-container {
-            display: flex;
-            flex-wrap: wrap;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.2s ease, filter 0.2s ease;
-            background: #111;
-            border: none;
-            margin: 0;
-            padding: 0;
-            flex-shrink: 0;
-        }
-
-        /* Seamless layout - different sizes, no gaps */
-        .gallery-item:nth-child(1) { width: 40%; height: 60vh; }
-        .gallery-item:nth-child(2) { width: 30%; height: 30vh; }
-        .gallery-item:nth-child(3) { width: 30%; height: 30vh; }
-        .gallery-item:nth-child(4) { width: 25%; height: 40vh; }
-        .gallery-item:nth-child(5) { width: 35%; height: 40vh; }
-        .gallery-item:nth-child(6) { width: 40%; height: 40vh; }
-        .gallery-item:nth-child(7) { width: 30%; height: 50vh; }
-        .gallery-item:nth-child(8) { width: 30%; height: 30vh; }
-        .gallery-item:nth-child(9) { width: 40%; height: 30vh; }
-        .gallery-item:nth-child(10) { width: 35%; height: 45vh; }
-        .gallery-item:nth-child(11) { width: 25%; height: 35vh; }
-        .gallery-item:nth-child(12) { width: 40%; height: 35vh; }
-        .gallery-item:nth-child(13) { width: 30%; height: 40vh; }
-        .gallery-item:nth-child(14) { width: 30%; height: 40vh; }
-        .gallery-item:nth-child(15) { width: 40%; height: 50vh; }
-        .gallery-item:nth-child(16) { width: 25%; height: 30vh; }
-        .gallery-item:nth-child(17) { width: 35%; height: 30vh; }
-        .gallery-item:nth-child(18) { width: 40%; height: 40vh; }
-        .gallery-item:nth-child(19) { width: 30%; height: 35vh; }
-        .gallery-item:nth-child(20) { width: 30%; height: 35vh; }
-
-        /* Default for remaining items */
-        .gallery-item:nth-child(n+21) { width: 33.33%; height: 40vh; }
-
-        .gallery-item:hover {
-            transform: scale(1.02);
-            filter: brightness(1.1);
-            z-index: 10;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: opacity 0.2s ease;
-        }
-
-        /* Lightbox */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .lightbox.active {
-            display: flex;
-        }
-
-        .lightbox-content {
-            position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .lightbox img {
-            max-width: 100%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 4px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .lightbox img.loaded {
-            opacity: 1;
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            z-index: 2001;
-        }
-
-        .lightbox-close:hover {
-            color: #cccccc;
-        }
-
-        /* Loading indicator */
-        .lightbox-loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #ffffff;
-            font-size: 1.1rem;
-            z-index: 2000;
-        }
-
-        .lightbox-loading::after {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #ffffff;
+        .click-button {
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s linear infinite;
-            margin-left: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            margin: 2rem auto;
+            display: block;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .click-button:hover {
+            transform: scale(1.05);
         }
 
-        /* About Section */
-        .about-section {
-            background: #111111;
-            padding: 5rem 2rem;
-            text-align: center;
+        .click-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.5);
         }
 
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
+        .click-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
         }
 
-        .about-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            font-weight: 300;
+        .leaderboard {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .about-content p {
-            font-size: 1.1rem;
-            color: #cccccc;
+        .leaderboard h3 {
+            font-size: 1.8rem;
             margin-bottom: 1.5rem;
-        }
-
-        /* Footer */
-        .footer {
-            background: #000000;
-            padding: 3rem 2rem 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .social-links a {
-            color: #cccccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .social-links a:hover {
             color: #ffffff;
         }
 
-        .copyright {
-            color: #666666;
-            font-size: 0.9rem;
+        .leaderboard-list {
+            list-style: none;
         }
 
-        /* Mobile Responsive */
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .leaderboard-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .rank {
+            font-weight: bold;
+            font-size: 1.2rem;
+            min-width: 40px;
+        }
+
+        .rank.gold { color: #ffd700; }
+        .rank.silver { color: #c0c0c0; }
+        .rank.bronze { color: #cd7f32; }
+
+        .player-name {
+            flex-grow: 1;
+            text-align: left;
+            margin-left: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .score {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #4CAF50;
+        }
+
+        .result-message {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .result-success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .result-info {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196F3;
+            border: 1px solid rgba(33, 150, 243, 0.3);
+        }
+
+        .loading {
+            color: #aaa;
+            font-style: italic;
+        }
+
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .gallery-item:nth-child(odd) { 
-                width: 60%; 
-                height: 40vh; 
-            }
-            
-            .gallery-item:nth-child(even) { 
-                width: 40%; 
-                height: 30vh; 
-            }
-
-            .about-content h2 {
+            .header h1 {
                 font-size: 2rem;
             }
 
-            .social-links {
+            .game-stats {
                 flex-direction: column;
-                gap: 1rem;
+                align-items: center;
             }
-        }
 
-        @media (max-width: 480px) {
-            .gallery-item:nth-child(n) { 
-                width: 50%; 
-                height: 35vh; 
+            .click-button {
+                width: 150px;
+                height: 150px;
+                font-size: 1.2rem;
+            }
+
+            .name-input {
+                margin-bottom: 1rem;
+                margin-right: 0;
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav">
-            <a href="index.html" class="logo">VEDANT</a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Gallery Section -->
-    <section class="gallery-section">
-        <div class="gallery-container" id="gallery-container">
-            <!-- Images will be loaded here -->
+    <div class="container">
+        <div class="header">
+            <h1>Photography Portfolio</h1>
+            <p>This page is under development by Vedant</p>
+            <div class="subtitle">Come back later</div>
         </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="about-content">
-            <h2>ABOUT MY PHOTOGRAPHY</h2>
-            <p>Photography is my way of capturing the world as I see it - through moments of beauty, emotion, and storytelling. Each image represents a unique perspective, a frozen moment in time that speaks to the viewer.</p>
-            <p>My work spans across various genres including street photography, landscapes, portraits, and urban exploration. I believe in the power of visual storytelling and strive to create images that evoke emotion and inspire others.</p>
-            <p>Based in Mumbai, India, I find inspiration in the bustling city life, the changing seasons, and the incredible diversity of people and places around me.</p>
+        <div class="game-container">
+            <h2 class="game-title">🎯 Click Speed Challenge</h2>
+            
+            <div class="name-input-section" id="nameSection">
+                <input type="text" id="playerName" class="name-input" placeholder="Enter your name" maxlength="20">
+                <button onclick="startGame()" class="btn btn-primary">Start Game</button>
+            </div>
+
+            <div class="game-area" id="gameArea">
+                <div class="game-stats">
+                    <div class="stat">
+                        <div class="stat-label">Time Left</div>
+                        <div class="stat-value" id="timeLeft">10</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Clicks</div>
+                        <div class="stat-value" id="clickCount">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">CPS</div>
+                        <div class="stat-value" id="cps">0.0</div>
+                    </div>
+                </div>
+
+                <button id="clickButton" class="click-button" onclick="handleClick()">
+                    CLICK ME!
+                </button>
+
+                <div id="resultMessage"></div>
+
+                <button onclick="resetGame()" class="btn btn-danger" style="margin-top: 1rem;">Play Again</button>
+            </div>
         </div>
-    </section>
 
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox">
-        <div class="lightbox-content">
-            <button class="lightbox-close" id="lightbox-close">&times;</button>
-            <div class="lightbox-loading" id="lightbox-loading">Loading full resolution...</div>
-            <img id="lightbox-img" src="" alt="">
+        <div class="leaderboard">
+            <h3>🏆 Top 10 Leaderboard</h3>
+            <div id="leaderboardContent" class="loading">Loading leaderboard...</div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="https://www.instagram.com/_vedjr/">Instagram</a>
-                <a href="https://github.com/vedjr02">GitHub</a>
-                <a href="https://www.linkedin.com/in/vedant-ambre">LinkedIn</a>
-                <a href="mailto:vedjr02@gmail.com">Email</a>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 Vedant Ambre. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
     <script>
-        // Available images - reduced to first 20 for faster loading
-        const imageNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+        let gameActive = false;
+        let timeLeft = 10;
+        let clickCount = 0;
+        let gameTimer;
+        let playerName = '';
 
-        // Create gallery with immediate loading
-        function createGallery() {
-            const container = document.getElementById('gallery-container');
+        // Mock leaderboard data (in real implementation, this would come from backend)
+        let leaderboard = [
+            { name: "Vedant", score: 127 },
+            { name: "Alex", score: 115 },
+            { name: "Sarah", score: 108 },
+            { name: "Mike", score: 102 },
+            { name: "Emma", score: 98 },
+            { name: "John", score: 95 },
+            { name: "Lisa", score: 89 },
+            { name: "David", score: 87 },
+            { name: "Anna", score: 84 },
+            { name: "Tom", score: 81 }
+        ];
+
+        function startGame() {
+            const nameInput = document.getElementById('playerName');
+            playerName = nameInput.value.trim();
             
-            imageNumbers.forEach(num => {
-                const item = document.createElement('div');
-                item.className = 'gallery-item';
-                item.setAttribute('data-full', `images/photography/${num}.jpg`);
-                
-                const img = document.createElement('img');
-                // Load thumbnails immediately - no lazy loading for faster experience
-                img.src = `images/photography/thumbnails/${num}.jpg`;
-                img.alt = 'Photography';
-                img.loading = 'eager'; // Force immediate loading
-                
-                // Add click listener
-                item.addEventListener('click', () => openLightbox(`images/photography/${num}.jpg`));
-                
-                item.appendChild(img);
-                container.appendChild(item);
-            });
-        }
+            if (!playerName) {
+                alert('Please enter your name!');
+                return;
+            }
 
-        // Lightbox functionality
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxClose = document.getElementById('lightbox-close');
-        const lightboxLoading = document.getElementById('lightbox-loading');
-
-        function openLightbox(fullSrc) {
-            lightbox.classList.add('active');
-            lightboxLoading.style.display = 'block';
-            lightboxImg.classList.remove('loaded');
-            document.body.style.overflow = 'hidden';
+            document.getElementById('nameSection').style.display = 'none';
+            document.getElementById('gameArea').style.display = 'block';
             
-            // Load full resolution image
-            const fullImg = new Image();
-            fullImg.onload = () => {
-                lightboxImg.src = fullSrc;
-                lightboxImg.classList.add('loaded');
-                lightboxLoading.style.display = 'none';
-            };
-            fullImg.onerror = () => {
-                lightboxLoading.textContent = 'Failed to load image';
-                setTimeout(closeLightbox, 2000);
-            };
-            fullImg.src = fullSrc;
+            gameActive = true;
+            timeLeft = 10;
+            clickCount = 0;
+            
+            updateDisplay();
+            
+            gameTimer = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
         }
 
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            lightboxImg.src = '';
-            lightboxImg.classList.remove('loaded');
-            lightboxLoading.style.display = 'none';
-            lightboxLoading.textContent = 'Loading full resolution...';
+        function handleClick() {
+            if (gameActive) {
+                clickCount++;
+                updateDisplay();
+                
+                // Add click animation
+                const button = document.getElementById('clickButton');
+                button.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                }, 100);
+            }
         }
 
-        // Event listeners
-        lightboxClose.addEventListener('click', closeLightbox);
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) closeLightbox();
+        function updateDisplay() {
+            document.getElementById('timeLeft').textContent = timeLeft;
+            document.getElementById('clickCount').textContent = clickCount;
+            document.getElementById('cps').textContent = (clickCount / (10 - timeLeft) || 0).toFixed(1);
+        }
+
+        function endGame() {
+            gameActive = false;
+            clearInterval(gameTimer);
+            
+            const button = document.getElementById('clickButton');
+            button.disabled = true;
+            button.textContent = 'GAME OVER';
+            
+            const finalScore = clickCount;
+            const resultDiv = document.getElementById('resultMessage');
+            
+            // Add to leaderboard
+            addToLeaderboard(playerName, finalScore);
+            
+            // Show result
+            resultDiv.innerHTML = `
+                <div class="result-success">
+                    🎉 Great job, ${playerName}!<br>
+                    Final Score: ${finalScore} clicks in 10 seconds<br>
+                    CPS: ${(finalScore / 10).toFixed(1)}
+                </div>
+            `;
+            
+            updateLeaderboard();
+        }
+
+        function addToLeaderboard(name, score) {
+            // Add new score
+            leaderboard.push({ name: name, score: score });
+            
+            // Sort by score (descending)
+            leaderboard.sort((a, b) => b.score - a.score);
+            
+            // Keep only top 10
+            leaderboard = leaderboard.slice(0, 10);
+            
+            // In real implementation, this would be sent to backend
+            // saveToBackend(leaderboard);
+        }
+
+        function updateLeaderboard() {
+            const content = document.getElementById('leaderboardContent');
+            
+            if (leaderboard.length === 0) {
+                content.innerHTML = '<div class="loading">No scores yet. Be the first!</div>';
+                return;
+            }
+            
+            const listHTML = leaderboard.map((player, index) => {
+                let rankClass = '';
+                let rankIcon = '';
+                
+                if (index === 0) {
+                    rankClass = 'gold';
+                    rankIcon = '🥇';
+                } else if (index === 1) {
+                    rankClass = 'silver';
+                    rankIcon = '🥈';
+                } else if (index === 2) {
+                    rankClass = 'bronze';
+                    rankIcon = '🥉';
+                } else {
+                    rankIcon = `#${index + 1}`;
+                }
+                
+                return `
+                    <div class="leaderboard-item">
+                        <div class="rank ${rankClass}">${rankIcon}</div>
+                        <div class="player-name">${player.name}</div>
+                        <div class="score">${player.score}</div>
+                    </div>
+                `;
+            }).join('');
+            
+            content.innerHTML = listHTML;
+        }
+
+        function resetGame() {
+            document.getElementById('nameSection').style.display = 'block';
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('resultMessage').innerHTML = '';
+            
+            const button = document.getElementById('clickButton');
+            button.disabled = false;
+            button.textContent = 'CLICK ME!';
+            
+            // Clear name input
+            document.getElementById('playerName').value = '';
+        }
+
+        // Initialize leaderboard on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLeaderboard();
         });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-                closeLightbox();
+        // Add Enter key support for name input
+        document.getElementById('playerName').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                startGame();
             }
         });
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            header.style.background = window.scrollY > 100 ? 
-                'rgba(0, 0, 0, 0.95)' : 'rgba(0, 0, 0, 0.9)';
-        });
-
-        // Initialize gallery on page load
-        document.addEventListener('DOMContentLoaded', createGallery);
+        // Prevent right-click and other cheating methods
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+        document.addEventListener('selectstart', (e) => e.preventDefault());
     </script>
 </body>
 </html>
