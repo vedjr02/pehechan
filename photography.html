@@ -85,7 +85,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('images/photography/_MG_2304.jpg') center/cover;
+            background: url('images/photography/BESTTTT.jpg') center/cover;
             opacity: 0.2;
             z-index: -1;
         }
@@ -151,6 +151,7 @@
             cursor: pointer;
             transition: transform 0.3s ease;
             aspect-ratio: 4/3;
+            background: #222;
         }
 
         .gallery-item:hover {
@@ -162,6 +163,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
+            display: block;
         }
 
         .gallery-item:hover img {
@@ -195,6 +197,20 @@
         .gallery-info p {
             font-size: 0.9rem;
             color: #cccccc;
+        }
+
+        /* Image error handling */
+        .gallery-item img[src=""], .gallery-item img:not([src]) {
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item img[src=""]:after, .gallery-item img:not([src]):after {
+            content: "Image not found";
+            color: #666;
+            font-size: 0.9rem;
         }
 
         /* Lightbox */
@@ -377,92 +393,92 @@
     <section id="gallery" class="gallery-section">
         <h2 class="section-title">GALLERY</h2>
         <div class="gallery-grid">
-            <div class="gallery-item" data-src="images/photography/_MG_2304.jpg" data-caption="Urban Solitude">
-                <img src="images/photography/_MG_2304.jpg" alt="Urban Solitude">
+            <div class="gallery-item" data-src="images/photography/BESTTTT.jpg" data-caption="Best Shot">
+                <img src="images/photography/BESTTTT.jpg" alt="Best Shot" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#666;font-size:0.9rem;\'>Image not available</div>'">
                 <div class="gallery-overlay">
                     <div class="gallery-info">
-                        <h3>Urban Solitude</h3>
-                        <p>Street Photography</p>
+                        <h3>Best Shot</h3>
+                        <p>Featured Photography</p>
                     </div>
                 </div>
             </div>
 
-            <div class="gallery-item" data-src="images/photography/_MG_2333.jpg" data-caption="Golden Hour">
-                <img src="images/photography/_MG_2333.jpg" alt="Golden Hour">
+            <div class="gallery-item" data-src="images/photography/Final.jpg" data-caption="Final Edit">
+                <img src="images/photography/Final.jpg" alt="Final Edit" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#666;font-size:0.9rem;\'>Image not available</div>'">
                 <div class="gallery-overlay">
                     <div class="gallery-info">
-                        <h3>Golden Hour</h3>
-                        <p>Landscape Photography</p>
+                        <h3>Final Edit</h3>
+                        <p>Post Processing</p>
                     </div>
                 </div>
             </div>
 
-            <div class="gallery-item" data-src="images/photography/_MG_2523.jpg" data-caption="City Reflections">
-                <img src="images/photography/_MG_2523.jpg" alt="City Reflections">
+            <div class="gallery-item" data-src="images/photography/GG_03.jpg" data-caption="Golden Glow">
+                <img src="images/photography/GG_03.jpg" alt="Golden Glow" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#666;font-size:0.9rem;\'>Image not available</div>'">
                 <div class="gallery-overlay">
                     <div class="gallery-info">
-                        <h3>City Reflections</h3>
-                        <p>Urban Photography</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-src="images/photography/_MG_2892.jpg" data-caption="Monsoon Mood">
-                <img src="images/photography/_MG_2892.jpg" alt="Monsoon Mood">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Monsoon Mood</h3>
-                        <p>Weather Photography</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-src="images/photography/_MG_3016-Edit.jpg" data-caption="Light & Shadow">
-                <img src="images/photography/_MG_3016-Edit.jpg" alt="Light & Shadow">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Light & Shadow</h3>
-                        <p>Abstract Photography</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-src="images/photography/_MG_3147-2.jpg" data-caption="Peaceful Moments">
-                <img src="images/photography/_MG_3147-2.jpg" alt="Peaceful Moments">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Peaceful Moments</h3>
-                        <p>Nature Photography</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-src="images/photography/_MG_4172.jpg" data-caption="Evening Glow">
-                <img src="images/photography/_MG_4172.jpg" alt="Evening Glow">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Evening Glow</h3>
+                        <h3>Golden Glow</h3>
                         <p>Portrait Photography</p>
                     </div>
                 </div>
             </div>
 
-            <div class="gallery-item" data-src="images/photography/_MG_4740.jpg" data-caption="Urban Stories">
-                <img src="images/photography/_MG_4740.jpg" alt="Urban Stories">
+            <div class="gallery-item" data-src="images/photography/GG_04.jpg" data-caption="Golden Hour">
+                <img src="images/photography/GG_04.jpg" alt="Golden Hour" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#666;font-size:0.9rem;\'>Image not available</div>'">
                 <div class="gallery-overlay">
                     <div class="gallery-info">
-                        <h3>Urban Stories</h3>
-                        <p>Documentary Photography</p>
+                        <h3>Golden Hour</h3>
+                        <p>Natural Light</p>
                     </div>
                 </div>
             </div>
 
-            <div class="gallery-item" data-src="images/photography/_MG_4977.jpg" data-caption="Natural Beauty">
-                <img src="images/photography/_MG_4977.jpg" alt="Natural Beauty">
+            <div class="gallery-item" data-src="images/photography/GG_05.jpg" data-caption="Golden Series">
+                <img src="images/photography/GG_05.jpg" alt="Golden Series" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#666;font-size:0.9rem;\'>Image not available</div>'">
                 <div class="gallery-overlay">
                     <div class="gallery-info">
-                        <h3>Natural Beauty</h3>
-                        <p>Landscape Photography</p>
+                        <h3>Golden Series</h3>
+                        <p>Creative Photography</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-src="images/photography/2.jpg" data-caption="Artistic Vision">
+                <img src="images/photography/2.jpg" alt="Artistic Vision" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#666;font-size:0.9rem;\'>Image not available</div>'">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3>Artistic Vision</h3>
+                        <p>Creative Art</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-src="images/photography/_MG_2304.jpg" data-caption="Urban Life">
+                <img src="images/photography/_MG_2304.jpg" alt="Urban Life" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#666;font-size:0.9rem;\'>Image not available</div>'">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3>Urban Life</h3>
+                        <p>Street Photography</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-src="images/photography/_MG_2333.jpg" data-caption="City Moments">
+                <img src="images/photography/_MG_2333.jpg" alt="City Moments" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#666;font-size:0.9rem;\'>Image not available</div>'">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3>City Moments</h3>
+                        <p>Urban Photography</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-src="images/photography/_MG_4172.jpg" data-caption="Evening Light">
+                <img src="images/photography/_MG_4172.jpg" alt="Evening Light" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#666;font-size:0.9rem;\'>Image not available</div>'">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3>Evening Light</h3>
+                        <p>Natural Photography</p>
                     </div>
                 </div>
             </div>
@@ -566,6 +582,15 @@
             } else {
                 header.style.background = 'rgba(10, 10, 10, 0.95)';
             }
+        });
+
+        // Image loading error handling
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('error', function() {
+                console.log('Failed to load image:', this.src);
+                this.style.display = 'none';
+                this.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#666;font-size:0.9rem;">Image not available</div>';
+            });
         });
     </script>
 </body>
