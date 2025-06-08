@@ -1,201 +1,572 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Photography | Vedant</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Portfolio - Vedant Ambre</title>
     <style>
-        body { background: #181818; color: #fff; margin: 0; font-family: 'Montserrat', Arial, sans-serif; }
-        .photo-hero {
-            text-align: center;
-            padding: 3rem 1rem 1.5rem 1rem;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .photo-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.7rem;
-            letter-spacing: 0.04em;
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
         }
-        .photo-hero p {
-            font-size: 1.1rem;
-            color: #eab07c;
-            margin-bottom: 0.5rem;
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .photo-hero .signature {
-            font-size: 1rem;
-            color: #aaa;
-            margin-top: 1.2rem;
-            font-style: italic;
-        }
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.2rem;
-            padding: 1.5rem 2vw 2.5rem 2vw;
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             max-width: 1200px;
             margin: 0 auto;
         }
-        .photo-item {
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #cccccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
             position: relative;
             overflow: hidden;
-            border-radius: 12px;
-            background: #222;
-            box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/photography/_MG_2304.jpg') center/cover;
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .cta-button:hover {
+            background: #ffffff;
+            color: #0a0a0a;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
             cursor: pointer;
+            transition: transform 0.3s ease;
             aspect-ratio: 4/3;
         }
-        .photo-img {
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
-            transition: transform 0.4s cubic-bezier(.4,2,.6,1);
+            transition: transform 0.5s ease;
         }
-        .photo-item:hover .photo-img {
-            transform: scale(1.07) rotate(-1deg);
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
         }
-        .photo-caption {
+
+        .gallery-overlay {
             position: absolute;
-            left: 0; right: 0; bottom: 0;
-            background: rgba(24,24,24,0.7);
-            color: #eab07c;
-            font-size: 1rem;
-            padding: 0.4rem 1rem;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
             opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
         }
-        .photo-item:hover .photo-caption {
+
+        .gallery-item:hover .gallery-overlay {
             opacity: 1;
         }
-        /* Lightbox styles */
+
+        .gallery-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .gallery-info p {
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+
+        /* Lightbox */
         .lightbox {
             display: none;
             position: fixed;
-            z-index: 9999;
-            left: 0; top: 0; width: 100vw; height: 100vh;
-            background: rgba(20,20,20,0.97);
-            align-items: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
             justify-content: center;
-            flex-direction: column;
+            align-items: center;
         }
+
         .lightbox.active {
             display: flex;
         }
-        .lightbox-img {
+
+        .lightbox-content {
+            position: relative;
             max-width: 90vw;
-            max-height: 80vh;
-            border-radius: 12px;
-            box-shadow: 0 4px 32px rgba(234, 190, 124, 0.18);
-            margin-bottom: 1.2rem;
+            max-height: 90vh;
         }
-        .lightbox-caption {
-            color: #eab07c;
-            font-size: 1.1rem;
-            text-align: center;
-            margin-bottom: 1.5rem;
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
         }
+
         .lightbox-close {
             position: absolute;
-            top: 1.5rem;
-            right: 2rem;
-            font-size: 2.2rem;
-            color: #fff;
+            top: -40px;
+            right: 0;
             background: none;
             border: none;
+            color: #ffffff;
+            font-size: 2rem;
             cursor: pointer;
-            z-index: 10001;
-            transition: color 0.2s;
+            transition: color 0.3s ease;
         }
+
         .lightbox-close:hover {
-            color: #eab07c;
+            color: #cccccc;
         }
-        @media (max-width: 600px) {
-            .photo-hero h1 { font-size: 1.5rem; }
-            .photo-grid { gap: 0.7rem; padding: 1rem 0.5rem 1.5rem 0.5rem; }
-            .lightbox-img { max-width: 98vw; max-height: 60vh; }
-            .lightbox-close { top: 0.7rem; right: 1rem; font-size: 1.5rem; }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #ffffff;
+            font-size: 1.1rem;
         }
-        a { color: #eab07c; text-decoration: none; }
+
+        /* About Section */
+        .about-section {
+            background: #111111;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: #cccccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .social-links a:hover {
+            color: #ffffff;
+        }
+
+        .copyright {
+            color: #666666;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-content h2 {
+                font-size: 2rem;
+            }
+
+            .social-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <header style="text-align:center; padding:1.2rem 0 0.5rem 0;">
-        <a href="index.html" style="font-size:1.3rem; color:#eab07c; font-weight:bold; letter-spacing:0.04em;">Vedant.</a>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">VEDANT</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
-    <main>
-        <section class="photo-hero">
-            <h1>Photography Portfolio</h1>
-            <p>Minimalist, modern, and fast-loading gallery.<br>Curated moments by Vedant Ambre.</p>
-            <div class="signature">“Photography is the story I fail to put into words.”</div>
-        </section>
-        <section>
-            <div class="photo-grid">
-                <div class="photo-item" data-caption="Urban solitude, Mumbai">
-                    <img class="photo-img" src="images/photography/_MG_2304.jpg" alt="Urban solitude, Mumbai" loading="lazy">
-                    <div class="photo-caption">Urban solitude, Mumbai</div>
-                </div>
-                <div class="photo-item" data-caption="Golden hour by the sea">
-                    <img class="photo-img" src="images/photography/_MG_2333.jpg" alt="Golden hour by the sea" loading="lazy">
-                    <div class="photo-caption">Golden hour by the sea</div>
-                </div>
-                <div class="photo-item" data-caption="Reflections in the city">
-                    <img class="photo-img" src="images/photography/_MG_2523.jpg" alt="Reflections in the city" loading="lazy">
-                    <div class="photo-caption">Reflections in the city</div>
-                </div>
-                <div class="photo-item" data-caption="Monsoon streets">
-                    <img class="photo-img" src="images/photography/_MG_2892.jpg" alt="Monsoon streets" loading="lazy">
-                    <div class="photo-caption">Monsoon streets</div>
-                </div>
-                <div class="photo-item" data-caption="Chasing light">
-                    <img class="photo-img" src="images/photography/_MG_3016-Edit.jpg" alt="Chasing light" loading="lazy">
-                    <div class="photo-caption">Chasing light</div>
-                </div>
-                <div class="photo-item" data-caption="Stillness in chaos">
-                    <img class="photo-img" src="images/photography/_MG_3147-2.jpg" alt="Stillness in chaos" loading="lazy">
-                    <div class="photo-caption">Stillness in chaos</div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>PHOTOGRAPHY</h1>
+            <p>Capturing moments, telling stories through the lens. Explore my collection of visual narratives that showcase the beauty in everyday life and extraordinary moments.</p>
+            <a href="#gallery" class="cta-button">View Gallery</a>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <h2 class="section-title">GALLERY</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" data-src="images/photography/_MG_2304.jpg" data-caption="Urban Solitude">
+                <img src="images/photography/_MG_2304.jpg" alt="Urban Solitude">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3>Urban Solitude</h3>
+                        <p>Street Photography</p>
+                    </div>
                 </div>
             </div>
-        </section>
-        <div class="lightbox" id="lightbox">
-            <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
-            <img class="lightbox-img" id="lightbox-img" src="" alt="">
+
+            <div class="gallery-item" data-src="images/photography/_MG_2333.jpg" data-caption="Golden Hour">
+                <img src="images/photography/_MG_2333.jpg" alt="Golden Hour">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3>Golden Hour</h3>
+                        <p>Landscape Photography</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-src="images/photography/_MG_2523.jpg" data-caption="City Reflections">
+                <img src="images/photography/_MG_2523.jpg" alt="City Reflections">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3>City Reflections</h3>
+                        <p>Urban Photography</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-src="images/photography/_MG_2892.jpg" data-caption="Monsoon Mood">
+                <img src="images/photography/_MG_2892.jpg" alt="Monsoon Mood">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3>Monsoon Mood</h3>
+                        <p>Weather Photography</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-src="images/photography/_MG_3016-Edit.jpg" data-caption="Light & Shadow">
+                <img src="images/photography/_MG_3016-Edit.jpg" alt="Light & Shadow">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3>Light & Shadow</h3>
+                        <p>Abstract Photography</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-src="images/photography/_MG_3147-2.jpg" data-caption="Peaceful Moments">
+                <img src="images/photography/_MG_3147-2.jpg" alt="Peaceful Moments">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3>Peaceful Moments</h3>
+                        <p>Nature Photography</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-src="images/photography/_MG_4172.jpg" data-caption="Evening Glow">
+                <img src="images/photography/_MG_4172.jpg" alt="Evening Glow">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3>Evening Glow</h3>
+                        <p>Portrait Photography</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-src="images/photography/_MG_4740.jpg" data-caption="Urban Stories">
+                <img src="images/photography/_MG_4740.jpg" alt="Urban Stories">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3>Urban Stories</h3>
+                        <p>Documentary Photography</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-src="images/photography/_MG_4977.jpg" data-caption="Natural Beauty">
+                <img src="images/photography/_MG_4977.jpg" alt="Natural Beauty">
+                <div class="gallery-overlay">
+                    <div class="gallery-info">
+                        <h3>Natural Beauty</h3>
+                        <p>Landscape Photography</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="about-content">
+            <h2>ABOUT MY PHOTOGRAPHY</h2>
+            <p>Photography is my way of capturing the world as I see it - through moments of beauty, emotion, and storytelling. Each image represents a unique perspective, a frozen moment in time that speaks to the viewer.</p>
+            <p>My work spans across various genres including street photography, landscapes, portraits, and urban exploration. I believe in the power of visual storytelling and strive to create images that evoke emotion and inspire others.</p>
+            <p>Based in Mumbai, India, I find inspiration in the bustling city life, the changing seasons, and the incredible diversity of people and places around me.</p>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightbox-close">&times;</button>
+            <img id="lightbox-img" src="" alt="">
             <div class="lightbox-caption" id="lightbox-caption"></div>
         </div>
-    </main>
-    <footer style="text-align:center; color:#aaa; font-size:0.95rem; padding:1.5rem 0 0.7rem 0;">
-        &copy; Copyright Vedant 2025
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://www.instagram.com/_vedjr/">Instagram</a>
+                <a href="https://github.com/vedjr02">GitHub</a>
+                <a href="https://www.linkedin.com/in/vedant-ambre">LinkedIn</a>
+                <a href="mailto:vedjr02@gmail.com">Email</a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Vedant Ambre. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
+
     <script>
-    // Minimalist Lightbox
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxCaption = document.getElementById('lightbox-caption');
-    const lightboxClose = document.getElementById('lightbox-close');
-    document.querySelectorAll('.photo-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const img = this.querySelector('img');
-            lightboxImg.src = img.src;
-            lightboxImg.alt = img.alt;
-            lightboxCaption.textContent = this.getAttribute('data-caption') || img.alt || '';
-            lightbox.classList.add('active');
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
-    });
-    lightboxClose.addEventListener('click', function() {
-        lightbox.classList.remove('active');
-        lightboxImg.src = '';
-    });
-    lightbox.addEventListener('click', function(e) {
-        if (e.target === lightbox) {
+
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxClose = document.getElementById('lightbox-close');
+
+        // Open lightbox
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const src = this.getAttribute('data-src');
+                const caption = this.getAttribute('data-caption');
+                
+                lightboxImg.src = src;
+                lightboxCaption.textContent = caption;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close lightbox
+        function closeLightbox() {
             lightbox.classList.remove('active');
-            lightboxImg.src = '';
+            document.body.style.overflow = 'auto';
         }
-    });
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            lightbox.classList.remove('active');
-            lightboxImg.src = '';
-        }
-    });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 10, 10, 0.98)';
+            } else {
+                header.style.background = 'rgba(10, 10, 10, 0.95)';
+            }
+        });
     </script>
 </body>
 </html>
