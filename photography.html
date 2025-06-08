@@ -11,6 +11,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Arial', sans-serif;
             background-color: #0a0a0a;
@@ -66,82 +70,18 @@
             color: #ffffff;
         }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('images/photography/1.jpg') center/cover;
-            opacity: 0.2;
-            z-index: -1;
-        }
-
-        .hero-content h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            font-weight: 300;
-            letter-spacing: 3px;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            color: #cccccc;
-            margin-bottom: 2rem;
-            max-width: 600px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 12px 30px;
-            background: transparent;
-            border: 2px solid #ffffff;
-            color: #ffffff;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .cta-button:hover {
-            background: #ffffff;
-            color: #0a0a0a;
-        }
-
         /* Gallery Section */
         .gallery-section {
-            padding: 5rem 2rem;
+            padding: 6rem 2rem 3rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
-
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-auto-rows: 200px;
+            gap: 1rem;
         }
 
         .gallery-item {
@@ -149,13 +89,74 @@
             overflow: hidden;
             border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.3s ease;
-            aspect-ratio: 4/3;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             background: #222;
+        }
+
+        /* Different sizes for masonry effect */
+        .gallery-item:nth-child(1) {
+            grid-row: span 2;
+            grid-column: span 1;
+        }
+
+        .gallery-item:nth-child(2) {
+            grid-row: span 1;
+            grid-column: span 2;
+        }
+
+        .gallery-item:nth-child(3) {
+            grid-row: span 2;
+            grid-column: span 1;
+        }
+
+        .gallery-item:nth-child(4) {
+            grid-row: span 1;
+            grid-column: span 1;
+        }
+
+        .gallery-item:nth-child(5) {
+            grid-row: span 2;
+            grid-column: span 1;
+        }
+
+        .gallery-item:nth-child(6) {
+            grid-row: span 1;
+            grid-column: span 2;
+        }
+
+        .gallery-item:nth-child(7) {
+            grid-row: span 1;
+            grid-column: span 1;
+        }
+
+        .gallery-item:nth-child(8) {
+            grid-row: span 2;
+            grid-column: span 1;
+        }
+
+        .gallery-item:nth-child(9) {
+            grid-row: span 1;
+            grid-column: span 2;
+        }
+
+        .gallery-item:nth-child(10) {
+            grid-row: span 2;
+            grid-column: span 1;
+        }
+
+        .gallery-item:nth-child(11) {
+            grid-row: span 1;
+            grid-column: span 1;
+        }
+
+        .gallery-item:nth-child(12) {
+            grid-row: span 2;
+            grid-column: span 1;
         }
 
         .gallery-item:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
         }
 
         .gallery-item img {
@@ -167,36 +168,7 @@
         }
 
         .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            display: flex;
-            align-items: flex-end;
-            padding: 1.5rem;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-
-        .gallery-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
-        }
-
-        .gallery-info p {
-            font-size: 0.9rem;
-            color: #cccccc;
+            transform: scale(1.05);
         }
 
         /* Lightbox */
@@ -244,16 +216,6 @@
 
         .lightbox-close:hover {
             color: #cccccc;
-        }
-
-        .lightbox-caption {
-            position: absolute;
-            bottom: -50px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: #ffffff;
-            font-size: 1.1rem;
         }
 
         /* About Section */
@@ -324,21 +286,15 @@
                 display: none;
             }
 
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-content p {
-                font-size: 1rem;
-            }
-
             .gallery-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                grid-auto-rows: 250px;
             }
 
-            .section-title {
-                font-size: 2rem;
+            /* Reset grid spans for mobile */
+            .gallery-item:nth-child(n) {
+                grid-row: span 1;
+                grid-column: span 1;
             }
 
             .about-content h2 {
@@ -350,6 +306,18 @@
                 gap: 1rem;
             }
         }
+
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item:nth-child(2),
+            .gallery-item:nth-child(6),
+            .gallery-item:nth-child(9) {
+                grid-column: span 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -359,144 +327,61 @@
             <a href="index.html" class="logo">VEDANT</a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>PHOTOGRAPHY</h1>
-            <p>Capturing moments, telling stories through the lens. Explore my collection of visual narratives that showcase the beauty in everyday life and extraordinary moments.</p>
-            <a href="#gallery" class="cta-button">View Gallery</a>
-        </div>
-    </section>
-
     <!-- Gallery Section -->
-    <section id="gallery" class="gallery-section">
-        <h2 class="section-title">GALLERY</h2>
+    <section class="gallery-section">
         <div class="gallery-grid">
-            <div class="gallery-item" data-src="images/photography/1.jpg" data-caption="Photography 1">
-                <img src="images/photography/1.jpg" alt="Photography 1">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Photography 1</h3>
-                        <p>Featured Work</p>
-                    </div>
-                </div>
+            <div class="gallery-item" data-src="images/photography/1.jpg">
+                <img src="images/photography/1.jpg" alt="Photography">
             </div>
 
-            <div class="gallery-item" data-src="images/photography/2.jpg" data-caption="Photography 2">
-                <img src="images/photography/2.jpg" alt="Photography 2">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Photography 2</h3>
-                        <p>Creative Vision</p>
-                    </div>
-                </div>
+            <div class="gallery-item" data-src="images/photography/2.jpg">
+                <img src="images/photography/2.jpg" alt="Photography">
             </div>
 
-            <div class="gallery-item" data-src="images/photography/3.jpg" data-caption="Photography 3">
-                <img src="images/photography/3.jpg" alt="Photography 3">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Photography 3</h3>
-                        <p>Artistic Expression</p>
-                    </div>
-                </div>
+            <div class="gallery-item" data-src="images/photography/3.jpg">
+                <img src="images/photography/3.jpg" alt="Photography">
             </div>
 
-            <div class="gallery-item" data-src="images/photography/4.jpg" data-caption="Photography 4">
-                <img src="images/photography/4.jpg" alt="Photography 4">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Photography 4</h3>
-                        <p>Visual Story</p>
-                    </div>
-                </div>
+            <div class="gallery-item" data-src="images/photography/4.jpg">
+                <img src="images/photography/4.jpg" alt="Photography">
             </div>
 
-            <div class="gallery-item" data-src="images/photography/5.jpg" data-caption="Photography 5">
-                <img src="images/photography/5.jpg" alt="Photography 5">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Photography 5</h3>
-                        <p>Captured Moment</p>
-                    </div>
-                </div>
+            <div class="gallery-item" data-src="images/photography/5.jpg">
+                <img src="images/photography/5.jpg" alt="Photography">
             </div>
 
-            <div class="gallery-item" data-src="images/photography/6.jpg" data-caption="Photography 6">
-                <img src="images/photography/6.jpg" alt="Photography 6">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Photography 6</h3>
-                        <p>Light & Shadow</p>
-                    </div>
-                </div>
+            <div class="gallery-item" data-src="images/photography/6.jpg">
+                <img src="images/photography/6.jpg" alt="Photography">
             </div>
 
-            <div class="gallery-item" data-src="images/photography/7.jpg" data-caption="Photography 7">
-                <img src="images/photography/7.jpg" alt="Photography 7">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Photography 7</h3>
-                        <p>Urban Life</p>
-                    </div>
-                </div>
+            <div class="gallery-item" data-src="images/photography/7.jpg">
+                <img src="images/photography/7.jpg" alt="Photography">
             </div>
 
-            <div class="gallery-item" data-src="images/photography/8.jpg" data-caption="Photography 8">
-                <img src="images/photography/8.jpg" alt="Photography 8">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Photography 8</h3>
-                        <p>Natural Beauty</p>
-                    </div>
-                </div>
+            <div class="gallery-item" data-src="images/photography/8.jpg">
+                <img src="images/photography/8.jpg" alt="Photography">
             </div>
 
-            <div class="gallery-item" data-src="images/photography/9.jpg" data-caption="Photography 9">
-                <img src="images/photography/9.jpg" alt="Photography 9">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Photography 9</h3>
-                        <p>Portrait Work</p>
-                    </div>
-                </div>
+            <div class="gallery-item" data-src="images/photography/9.jpg">
+                <img src="images/photography/9.jpg" alt="Photography">
             </div>
 
-            <div class="gallery-item" data-src="images/photography/10.jpg" data-caption="Photography 10">
-                <img src="images/photography/10.jpg" alt="Photography 10">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Photography 10</h3>
-                        <p>Creative Shot</p>
-                    </div>
-                </div>
+            <div class="gallery-item" data-src="images/photography/10.jpg">
+                <img src="images/photography/10.jpg" alt="Photography">
             </div>
 
-            <div class="gallery-item" data-src="images/photography/11.jpg" data-caption="Photography 11">
-                <img src="images/photography/11.jpg" alt="Photography 11">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Photography 11</h3>
-                        <p>Landscape</p>
-                    </div>
-                </div>
+            <div class="gallery-item" data-src="images/photography/11.jpg">
+                <img src="images/photography/11.jpg" alt="Photography">
             </div>
 
-            <div class="gallery-item" data-src="images/photography/12.jpg" data-caption="Photography 12">
-                <img src="images/photography/12.jpg" alt="Photography 12">
-                <div class="gallery-overlay">
-                    <div class="gallery-info">
-                        <h3>Photography 12</h3>
-                        <p>Street Photography</p>
-                    </div>
-                </div>
+            <div class="gallery-item" data-src="images/photography/12.jpg">
+                <img src="images/photography/12.jpg" alt="Photography">
             </div>
         </div>
     </section>
@@ -516,7 +401,6 @@
         <div class="lightbox-content">
             <button class="lightbox-close" id="lightbox-close">&times;</button>
             <img id="lightbox-img" src="" alt="">
-            <div class="lightbox-caption" id="lightbox-caption"></div>
         </div>
     </div>
 
@@ -553,17 +437,13 @@
         // Lightbox functionality
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxCaption = document.getElementById('lightbox-caption');
         const lightboxClose = document.getElementById('lightbox-close');
 
         // Open lightbox
         document.querySelectorAll('.gallery-item').forEach(item => {
             item.addEventListener('click', function() {
                 const src = this.getAttribute('data-src');
-                const caption = this.getAttribute('data-caption');
-                
                 lightboxImg.src = src;
-                lightboxCaption.textContent = caption;
                 lightbox.classList.add('active');
                 document.body.style.overflow = 'hidden';
             });
